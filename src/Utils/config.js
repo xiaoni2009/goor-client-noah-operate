@@ -14,4 +14,5 @@ const LS = {
 module.exports = {
   LS,
   apiUrl: 'http://'+ apiUrl +'/',
+  ws: 'ws://' + apiUrl + '/goor/ws'
 };

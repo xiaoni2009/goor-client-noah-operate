@@ -12,7 +12,8 @@ class Appliance extends React.Component {
 
     setBag(bag){
         const { dispatch } = this.props;
-        dispatch({ type: 'Appliance/save', payload: { bag } });
+        dispatch({ type: 'Order/query', payload: { bag } });
+        dispatch({ type: 'Appliance/save', payload: { data: [] } });
         dispatch(routerRedux.push('order'));
     }
 

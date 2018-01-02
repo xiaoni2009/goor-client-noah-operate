@@ -5,7 +5,7 @@ class SearchKeyword extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: ''
+            value: this.props.value || ""
         }
         this.toUpperCase = this.toUpperCase.bind(this);
     }
@@ -32,6 +32,7 @@ class SearchKeyword extends React.Component {
 //参数类型验证
 SearchKeyword.propTypes = {
     placeholder: PropTypes.string.isRequired,
+    value: PropTypes.string,
     back: PropTypes.func.isRequired,
     search: PropTypes.func.isRequired
 }

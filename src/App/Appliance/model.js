@@ -4,7 +4,6 @@ export default {
 	state: {
 		data: [],
 		bag: {},
-		// extra: []
 	},
 	subscriptions: {
 		// setup({ dispatch, history }) {

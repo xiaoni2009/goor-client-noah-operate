@@ -5,6 +5,7 @@ import createLoading from 'dva-loading';
 
 import Routes from 'Routes';
 import appModels from './Routes/appModels';
+import OrderModel from 'App/Order/model';
 
 import './index.html';
 
@@ -22,6 +23,7 @@ app.use(createLoading());
 
 // 3. Model
 app.model(appModels);
+app.model(OrderModel);
 
 // 4. Router
 app.router(Routes);

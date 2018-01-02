@@ -49,8 +49,10 @@ export default class ReactConfirmAlert extends Component {
             <div className="react-confirm-alert-overlay">
                 <div className="react-confirm-alert">
                     <div className="confirmCo">
-                        {title && <h1>{title}</h1>}
-                        {message && <h3>{message}</h3>}
+                        <div className="cftit">
+                            {title && <h1>{title}</h1>}
+                            {message && <h3>{message}</h3>}
+                        </div>
                         {childrenElement()}
                     </div>
                     <div className="react-confirm-alert-button-group">

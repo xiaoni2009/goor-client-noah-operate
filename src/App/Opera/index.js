@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { SearchKeyword, confirmAlert } from 'Components';
+import OperaConfirm from './OperaConfirm'
 
 import './style.less';
 
@@ -13,26 +14,26 @@ class Opera extends React.Component {
         this.state = {
             value: 1,
         }
-        this.operaNum = this.operaNum.bind(this);
         this.setExtra = this.setExtra.bind(this);
-    }
-
-    // 修改数量
-    operaNum(e) {
-        // const _e = e.target.value.replace(/[^\d]/g, '');
-        const num = parseInt(e.target.value || '1');
-        console.log(num)
-        this.setState({ value:  num});
     }
 
     // 弹出框-编辑数量
     setExtra(t) {
-        const { dispatch, opera } = this.props;
+        const self = this;
+        const { dispatch, opera } = self.props;
         const { extra } = opera;
-        const { value } = this.state;
 
         // 缓存选中值
-        extra_ = t;      
+        extra_ = t;
+        let value_ = 1;
+
+        // OperaConfirm配置
+        const ocProps = {
+            item: t,
+            operaNum:(num)=>{
+                value_ = num;
+            }
+        }
 
         // 弹出框修改数量
         confirmAlert({
@@ -40,21 +41,25 @@ class Opera extends React.Component {
             message: '',
             childrenElement: () => {
                 return (
-                    <div className="cf">
-                        <div className="cf_type">当前选择器械：</div>
-                        <div className="of_name">{t.name}<small>{t.packageType ? t.packageType.name : ''}</small></div>
-                        <div className="of_val">请选择器械的数量：<input type="number" defaultValue={1} onKeyUp={this.operaNum} min="1" max="999" /></div>
-                    </div>
+                    <OperaConfirm {...ocProps} />
                 )
             },
             confirmLabel: '确认',
             cancelLabel: '取消',
             onConfirm() {
-                extra.push({
-                    appliance:extra_,
-                    number: value
-                })
-                dispatch({ type: 'Opera/save', payload: { extra } });
+                // extra.push({
+                //     appliance:extra_,
+                //     number: value
+                // });
+                // dispatch({ type: 'Opera/save', payload: { extra } });
+
+                const extras = {
+                    appliance: extra_,
+                    number: value_
+                }
+
+                dispatch({ type: 'Order/query', payload: { extra: extras } });
+                dispatch({ type: 'Opera/save', payload: { data: [] } });
                 dispatch(routerRedux.push('order'));
             },
             onCancel() {

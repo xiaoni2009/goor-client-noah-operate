@@ -1,29 +1,41 @@
-import React from 'react'
+import React, { PropTypes } from 'react';
+import { connect } from 'dva';
 import './style.less'
 
 class Depot extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            depotViewShow: false
+            depotViewShow: false,
+            view: {}
         }
 
         this.depotView = this.depotView.bind(this);
         this.closeDepot = this.closeDepot.bind(this);
+        this.okDepot = this.okDepot.bind(this);
     }
 
     // 订单详情
-    depotView(index) {
-        this.setState({depotViewShow: true})
+    depotView(view) {
+        this.setState({ depotViewShow: true, view })
     }
 
     // 关闭详情
-    closeDepot(){
-        this.setState({depotViewShow: false})
+    closeDepot() {
+        this.setState({ depotViewShow: false })
+    }
+
+    // 受理完毕
+    okDepot(id){
+        console.log(id)
     }
 
     render() {
-        const { depotViewShow } = this.state;
+        const { depotViewShow, view } = this.state;
+        const { data } = this.props.depot;
+
+console.log(view)
+
         return (
             <div className="depots">
                 {
@@ -31,34 +43,45 @@ class Depot extends React.Component {
                         ?
                         <div className="depotView">
                             <div className="depotViewCo">
-                                <div className="dList">
-                                    <span>手术类型</span>
-                                    <p>宫腔镜检查术+空腔镜下上环术+子宫内膜活检术+诊断性刮宫术</p>
-                                </div>
+                                {
+                                    view.operationType
+                                    &&
+                                    <div className="dList">
+                                        <span>手术类型</span>
+                                        <p>{view.operationType.name}</p>
+                                    </div>
+                                }
                                 <div className="dList">
                                     <span>器械列表：</span>
-                                    <p className="dlt">1x 侧开口器<br />2x 眼科显微镜电凝系统包1#（10件）<br />3x 邹焱专科精密器械25件<br />4x 耳鼻喉光纤接头</p>
+                                    <p className="dlt">
+                                        {
+                                            view.applianceList.map((t, i)=>{
+                                                return (
+                                                    <span key={i}>{i}.</span>
+                                                )
+                                            })
+                                        }
+                                    </p>
                                 </div>
                             </div>
                             <div className="depotViewButton">
                                 <i className="depotViewBack" onClick={this.closeDepot}></i>
-                                <i className="depotViewOK"></i>
+                                <i className="depotViewOK"  onClick={()=>{this.okDepot(view.id)}}></i>
                             </div>
                         </div>
                         :
                         <ul className="depot">
-                            <li onClick={() => { this.depotView(1) }}>
-                                <div className="dl"><span className="dl_num">手术室编号</span><span>11</span></div>
-                                <div className="dr"><span>临时器械申请</span><time>2017/10/29 12:30</time></div>
-                            </li>
-                            <li onClick={() => { this.depotView(2) }}>
-                                <div className="dl"><span className="dl_num">手术室编号</span><span>11</span></div>
-                                <div className="dr"><span>临时器械申请</span><time>2017/10/29 12:30</time></div>
-                            </li>
-                            <li onClick={() => { this.depotView(3) }}>
-                                <div className="dl"><span className="dl_num">手术室编号</span><span>11</span></div>
-                                <div className="dr"><span>临时器械申请</span><time>2017/10/29 12:30</time></div>
-                            </li>
+                            {
+                                data.map((t, i) => {
+                                    const name = t.operationType ? t.operationType.name : '临时器械申请'
+                                    return (
+                                        <li onClick={() => { this.depotView(t) }} key={i}>
+                                            <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
+                                            <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>2017/10/29 12:30</time></div>
+                                        </li>
+                                    )
+                                })
+                            }
                         </ul>
                 }
             </div>
@@ -66,4 +89,16 @@ class Depot extends React.Component {
     }
 }
 
-export default Depot;
+//参数类型验证
+Depot.propTypes = {
+    dispatch: PropTypes.func,
+}
+
+// state注入进来
+function mapStateToProps(state, loading) {
+    return {
+        depot: state.Depot
+    };
+}
+
+export default connect(mapStateToProps)(Depot);
