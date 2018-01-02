@@ -1,0 +1,53 @@
+
+html {-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;}
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+input{-webkit-appearance:none; resize: none; outline:none;}
+input, input:active {border: none}
+img {max-width: 100%;height: auto;width:auto; border: none;}
+/* 初始化开始*/
+*{margin:0; padding:0; border:none;box-sizing:border-box;}
+body{background-color:#f9fbff;color:#666;font-size:36px;}
+body, small {font-family: "Microsoft YaHei";}
+em,i,b{font-weight: normal;font-style: normal;}
+a{text-decoration:none; color:#969696;}
+a:hover{ text-decoration:none;}
+li{list-style:none;}
+h1, h2, h3, h4, h5, h6{ font-size:100%;font-weight: normal;}
+.clearfix:after{content:""; display:block; visibility:hidden; height:0; clear:both;}
+.clearfix{zoom:1;}
+.fl{float:left;}
+.fr{float:right;}
+// input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {}
+i {display: inline-block}
+/* 初始化结束 */
+
+body {background: url(./images/mainbg.png) right bottom no-repeat; height: 1200px}
+
+.header {
+    position: relative;
+    img {width: 100%}
+    .settingIcon {
+        position: absolute;
+        right: 50px;
+        top: 35px;
+        i {width: 72px; height: 72px; background: url(./images/icon_setting_normal.png) top left no-repeat;}
+        i:active {background: url(./images/icon_setting_pressed.png);}
+    }
+}
+
+.home {
+    text-align: center;
+    .homeType {
+        width: 1400px;
+        margin: 10% auto 0;
+        display: flex;
+        li {flex: 1}
+        i {width: 508px; height: 549px;}
+        i.button_home_01_normal {background: url(./images/button_home_01_normal.png) top left no-repeat;}
+        i.button_home_01_normal:active {background: url(./images/button_home_01_pressed.png) top left no-repeat;}
+        i.button_home_02_normal {background: url(./images/button_home_02_normal.png) top left no-repeat;}
+        i.button_home_02_normal:active {background: url(./images/button_home_02_pressed.png) top left no-repeat;}
+    }
+}

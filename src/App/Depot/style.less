@@ -1,0 +1,38 @@
+.depot {
+    margin: 0 0 0 45px;
+    li {
+        box-sizing: content-box;background: #fff; border: 1px solid #0F8CFF; border-radius: 6px; width: 886px; height: 152px;display: inline-block; margin: 12px 14px;text-align: center;
+        .dl {
+            float: left; width: 250px;height: 152px; background: #E6F4FF; font-size: 36px; color: #0F94FF; letter-spacing: 4.93px; border-right: 1px solid #0F9EFF; border-radius: 6px 0 0 6px;
+            span {display: block; height: 75px; line-height: 75px;}
+            .dl_num {background: #0F94FF; color: #fff; font-size: 32px; border-radius: 5px 0 0 0}
+        }
+        .dr {
+            float: left; margin: 35px 50px;
+            span, time {display: block; text-align: left}
+            span {font-size: 40px; color: #0E8CFF; letter-spacing: 5.47px;}
+            time {font-size: 24px; color: #AFAFAF; letter-spacing: 3.28px;}
+        }
+    }
+}
+
+.depotView {
+    background: #fff; box-shadow: 0 1px 3px 0 #9FA4AF; border-radius: 6px; width: 1866px; height: 819px; margin: 0 auto;
+    .depotViewCo {
+        margin: 35px; display: inline-block;
+        .dList {
+            color: #0E8AFF;letter-spacing: 4.11px; overflow: hidden; margin-bottom: 25px;
+            span {font-size: 40px; float: left; width: 230px; display: inline-block;}
+            p {font-size: 32px; float: left;line-height: 55px;}
+        }
+        .dlt {font-size: 36px; color: #7B7B7B; letter-spacing: 5.63px; line-height: 67px;}
+    }
+    .depotViewButton {
+        text-align: center; position: absolute; width: 100%; bottom: 25px;
+        i { width: 249px; height: 104px; margin: 0 60px}
+        i.depotViewBack:active {background: url(./images/button_back_normal.png) top left no-repeat}
+        i.depotViewBack {background: url(./images/button_back_pressed.png) top left no-repeat}
+        i.depotViewOK:active {background: url(./images/button_accept_pressed.png) top left no-repeat}
+        i.depotViewOK {background: url(./images/button_accept_normal.png) top left no-repeat}
+    }
+}
