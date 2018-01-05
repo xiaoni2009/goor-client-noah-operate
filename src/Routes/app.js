@@ -1,8 +1,13 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { Header } from 'Components/Layout';
+import { agvWs } from 'Utils'
 
 import './style.less'
+
+// 注册socket
+const { socketLink } = agvWs
+socketLink();
 
 class App extends React.Component {
     constructor(props) {

@@ -12,7 +12,7 @@ class SearchKeyword extends React.Component {
 
     toUpperCase(e) {
         const { search } = this.props;
-        const val = e.target.value.toUpperCase();
+        const val = e.target.value.replace(/[^\w\.\/]/ig,'').toUpperCase();
         this.setState({ value: val });
         search(val);
     }
@@ -23,7 +23,7 @@ class SearchKeyword extends React.Component {
         return (
             <div className="searchKeyword">
                 <i onClick={back}></i>
-                <input type="text" value={value} onChange={this.toUpperCase} placeholder={placeholder} />
+                <input type="text" value={value} onChange={this.toUpperCase} placeholder={placeholder} autoFocus="autofocus" />
             </div>
         )
     }

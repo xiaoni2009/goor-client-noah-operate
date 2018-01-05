@@ -30,11 +30,30 @@ export default {
                 yield put({ type: 'save', payload: { bag: bag_, extra: extra_ } });
             }
 
-            if(payload.extra){
+            const pe = payload.extra;
+            if(pe){
                 const Order = yield select(state => state.Order);
-                let et = Order.extra;
-                const extra_ = et.concat(payload.extra);
-                yield put({ type: 'save', payload: { extra: extra_ } });
+                let et = Order.extra, len = et.length, index = null;
+                //
+                if(len > 0 ){
+                    for (let i = 0 ; i < len; i++) {
+                        if(et[i].appliance.id == pe.appliance.id){
+                            // et[i].number += pe.number; // **注意**需要判断累计大于多少，暂未处理
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                //
+                if(index != null){
+                    et[index].number += pe.number;
+                }else {
+                    et.push(pe);
+                }
+
+                //
+                // const extra_ = et.concat(pe);
+                yield put({ type: 'save', payload: { extra: et } });
             }
 
         },

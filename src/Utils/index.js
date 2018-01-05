@@ -2,6 +2,8 @@ import classnames from 'classnames'
 import config from './config'
 import request from './request'
 import options from './options'
+import agvWs from './webSocket'
+import locals from './locals'
 
 
 //array remove
@@ -109,4 +111,6 @@ module.exports = {
   options,
   queryURL,
   queryArray,
+  agvWs,
+  locals
 }

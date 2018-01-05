@@ -17,8 +17,11 @@ class OperaConfirm extends React.Component {
         const { operaNum } = this.props;
 
         // 转数字
-        const _e = e.target.value.replace(/[^\d]/g, '');
-        let num = parseInt(e.target.value || '1');
+        let _e = e.target.value;
+        if(_e !== 0 && _e != ''){
+            _e = _e.replace(/[^\d]/g, '');
+        }
+        let num = parseInt(e.target.value);
 
         // 大于
         if(num > 999) {
@@ -42,7 +45,7 @@ class OperaConfirm extends React.Component {
             <div className="cf">
                 <div className="cf_type">当前选择器械：</div>
                 <div className="of_name">{item.name}<small>{item.packageType ? item.packageType.name : ''}</small></div>
-                <div className="of_val">请选择器械的数量：<input type="number" value={value} onChange={this.setNum} /></div>
+                <div className="of_val">请选择器械的数量：<input type="number" value={value} onChange={this.setNum} autoFocus="autofocus" /></div>
             </div>
         )
     }

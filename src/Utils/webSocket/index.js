@@ -20,6 +20,10 @@ const socketLink = function () {
     };
 }
 
+const socketClose = function(){
+    ws.onclose();
+}
+
 const socketSend = function (info, cb) {
     // //WebSocket任务表
     const ws_fun = {
@@ -36,20 +40,18 @@ const socketSend = function (info, cb) {
         },
         // 注册机器 返回功能
         Register: function () {
-            let newInfo = info.robotList.concat(info.sceneId)
             this.send({
                 "messageType": 'REGISTER',
                 "module": info.module || '',
-                "userId": newInfo.join(','),
+                "userId": info.userId,
             });
         },
         // 注销机器
         StopSending: function () {
-            let newInfo = info.robotList.concat(info.sceneId)
             this.send({
                 "messageType": "STOP_SENDING",
                 "module": info.module || '',
-                "userId": newInfo.join(','),
+                "userId": info.userId,
             });
         },
     }
@@ -67,8 +69,10 @@ const socketSend = function (info, cb) {
         }else{
             ws_fun.StopSending();
         }
+    }else {
+        console.log('还没准备好')
     }
 }
 
 
-export default { socketLink, socketSend };
+export default { socketLink, socketSend, socketClose };

@@ -1,32 +1,63 @@
 import React from 'react'
-
+import { locals, agvWs } from 'Utils'
 import './style.less'
+
+const { socketSend } = agvWs;
 
 class Payment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: true
+            show: 0,
+            orderInfo: {}
         }
     }
 
+    componentWillMount() {
+        let orderInfo = locals.get('orderInfo');
+        orderInfo = orderInfo ? JSON.parse(orderInfo) : null;
+        if (orderInfo) {
+            this.setState({ orderInfo });
+        }
+    }
+
+    componentDidMount(){
+        // 需要的机器人配置
+        const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: 55 };
+        // ws请求
+        socketSend(info, (res) => {
+            switch (res.messageType) {
+                case 'ORDER':
+                    console.log(res.body)
+                    break;
+                default:
+                    break;
+            }
+        });
+    }
+
     render() {
-        const { show } = this.state;
+        const { show, orderInfo } = this.state;
+        const { name, applianceList } = orderInfo;
         return (
             <div className="payment">
-                <div className="paymentState">
-                    <div className="picon icon1"></div>
-                    <ul className="paymentFlow">
-                        <li className="icon"><i className="stateLeft"></i><span>发送中</span></li>
-                        <li><var></var></li>
-                        <li className="icon"><i className="line"><i></i></i><span>待处理</span></li>
-                        <li><var></var></li>
-                        <li className="icon"><i className="line"><i></i></i><span>待接收</span></li>
-                    </ul>
-                    <p>正在发送手术包申请，请稍后…</p>
-                </div>
                 {
-                    show
+                    show === 0
+                    &&
+                    <div className="paymentState">
+                        <div className="picon icon1"></div>
+                        <ul className="paymentFlow">
+                            <li className="icon"><i className="stateLeft"></i><span>发送中</span></li>
+                            <li><var></var></li>
+                            <li className="icon"><i className="line"><i></i></i><span>待处理</span></li>
+                            <li><var></var></li>
+                            <li className="icon"><i className="line"><i></i></i><span>待接收</span></li>
+                        </ul>
+                        <p>正在发送手术包申请，请稍后…</p>
+                    </div>
+                }
+                {
+                    show === 1
                     &&
                     <div className="paymentState">
                         <div className="picon icon2"></div>
@@ -42,7 +73,7 @@ class Payment extends React.Component {
                 }
 
                 {
-                    show
+                    show === 2
                     &&
                     <div className="paymentState">
                         <div className="picon icon3"></div>
@@ -58,14 +89,29 @@ class Payment extends React.Component {
                 }
 
                 <div className="paymentList">
-                    <div className="pp">
-                        <span>手术类型</span>
-                        <p>宫腔镜检查术+空腔镜下上环术+子宫内膜活检术+诊断性刮宫术</p>
-                    </div>
-                    <div className="pp">
-                        <span>器械列表</span>
-                        <p>1X 侧开口器<br />2x 眼科显微镜电凝系统包1#（10件）<br />3x 邹焱专科精密器械25件<br />4x 耳鼻喉光纤接头</p>
-                    </div>
+                    {
+                        name
+                        &&
+                        <div className="pp">
+                            <span>手术类型</span>
+                            <p>{name}</p>
+                        </div>
+                    }
+                    {
+                        (applianceList && applianceList.length > 0)
+                        &&
+                        <div className="pp">
+                            <span>器械列表</span>
+                            <p>
+                                {
+                                    applianceList.map((t, i) => {
+                                        return <var key={i}>{i+1}X {t.appliance.name}<br /></var>
+                                    })
+                                }
+                            </p>
+                        </div>
+                    }
+
                 </div>
             </div>
         )

@@ -1,4 +1,5 @@
-import { QUERY } from './service';
+import { QUERY, ORDERRECEIVE, ORDERHANDLE } from './service';
+
 export default {
 	namespace: 'Depot',
 	state: {
@@ -16,10 +17,19 @@ export default {
 	effects: {
 		*query({ payload }, { call, put }) {
 			const res = yield call(QUERY);
-			if(res.code === 0){
+			if (res.code === 0) {
 				yield put({ type: 'save', payload: { data: res.data } });
 			}
 		},
+		*setOrder({ payload }, { call, put }) {
+			console.log(11111)
+		},
+		*orderreceive({ payload }, { call, put }) {
+			const res = yield call(ORDERRECEIVE, payload.id);
+		},
+		*orderhandle({ payload }, { call, put }) {
+			const res = yield call(ORDERHANDLE, payload.id);
+		}
 	},
 	reducers: {
 		save(state, { payload }) {

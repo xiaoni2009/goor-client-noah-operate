@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { confirmAlert } from 'Components';
+import { locals } from 'Utils'
 import './style.less'
 
 class Order extends React.Component {
@@ -81,7 +82,7 @@ class Order extends React.Component {
         const { extra, bag } = this.props.order;
         let info = {
             station: {
-                "id": 30 // 下单手术室站
+                "id": 55 // 下单手术室站
             },
             applianceList: []
         }
@@ -89,6 +90,7 @@ class Order extends React.Component {
         // 申请类型 1:按手术类型申请，2：临时器械申请 3:按手术类型申请,但最终请求的手术包与默认的手术包不同
         if (bag.id) {
             info.type = 1; // 按手术类型申请
+            info.name = bag.name || '';
             info['operationType'] = {
                 id: bag.id
             };
@@ -99,15 +101,23 @@ class Order extends React.Component {
         // 额外器械列表
         if(extra.length > 0) {
             extra.map((t)=>{
-                info.applianceList.push({
-                    appliance: {
-                        id: t.appliance.di
-                    },
-                    number: t.number
-                })
+                const t_ = t.appliance;
+                if(t_.id) {
+                    info.applianceList.push({
+                        appliance: {
+                            id: t_.id,
+                            name: t_.name || '',
+                            type: t_.packageType ? t_.packageType.name : ''
+                        },
+                        number: t.number
+                    })
+                }
             })   
         }
 
+        //
+        // 订单信息存储在本地
+        locals.set('orderInfo', JSON.stringify(info));
         dispatch({ type: 'Order/post', payload: info });
     }
 
