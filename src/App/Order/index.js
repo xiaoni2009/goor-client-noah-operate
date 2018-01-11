@@ -4,6 +4,7 @@ import { routerRedux } from 'dva/router';
 import { confirmAlert } from 'Components';
 import { locals } from 'Utils'
 import './style.less'
+import { Button } from 'Components';
 
 class Order extends React.Component {
     constructor(props) {
@@ -151,8 +152,8 @@ class Order extends React.Component {
                                                 editIndex === i
                                                 &&
                                                 <div className="editOpera">
-                                                    <i className="editBut"></i>
-                                                    <i className="removeBut" onClick={() => { this.removeBut(i, t) }}></i>
+                                                    <Button type="change" />
+                                                    <Button type="delete" onClick={() => { this.removeBut(i, t) }} />
                                                 </div>
                                             }
                                         </li>
@@ -168,9 +169,9 @@ class Order extends React.Component {
                 </div>
 
                 <div className="orderButton">
-                    <i className="orderBack" onClick={() => { this.orderClear(true) }}></i>
-                    <i className="orderClear" onClick={() => { this.orderClear(false) }}></i>
-                    <i className="orderSub" onClick={this.orderSub}></i>
+                    <Button type="back" onClick={() => { this.orderClear(true) }} />
+                    <Button type="empty" onClick={() => { this.orderClear(false) }} />
+                    <Button type="submit" onClick={this.orderSub} />
                 </div>
             </div>
         )

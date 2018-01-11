@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { agvWs } from 'Utils'
 import './style.less';
+import { Button } from 'Components';
 const { socketSend } = agvWs;
 
 let fetchOrder = true;
@@ -35,7 +36,7 @@ class Depot extends React.Component {
             // ws请求
             socketSend(info, (res) => {
                 switch (res.messageType) {
-                    case 'ORDER':
+                    case 'NOTIFICATION':
                         self.orderConcat(res.body)
                         break;
                     default:
@@ -110,13 +111,15 @@ class Depot extends React.Component {
                                 </div>
                             </div>
                             <div className="depotViewButton">
-                                <i className="depotViewBack" onClick={this.closeDepot}></i>
-                                <i className="depotViewOK" onClick={() => { this.okDepot(view.id) }}></i>
+                                <Button type="back" onClick={this.closeDepot} />
+                                <Button type="accept" onClick={() => { this.okDepot(view.id) }} />
                             </div>
                         </div>
                         :
                         <ul className="depot">
                             {
+                                orderList.length > 0
+                                ?
                                 orderList.map((t, i) => {
                                     const name = t.operationType ? t.operationType.name : '临时器械申请'
                                     return (
@@ -126,6 +129,8 @@ class Depot extends React.Component {
                                         </li>
                                     )
                                 })
+                                :
+                                <div className="noOrder"><i></i><span>当前无待处理任务</span></div>
                             }
                         </ul>
                 }

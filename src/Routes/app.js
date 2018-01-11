@@ -14,6 +14,15 @@ class App extends React.Component {
         super(props);
     }
 
+    componentDidMount() {
+        window.addEventListener('keydown', (e) => {
+            if ((e.keyCode == 37) && (e.altKey)) {
+                // alert("不准你使用ALT+方向键后退网页！");
+                event.returnValue = false;
+            }
+        })
+    }
+
     render() {
         // 注入子界面
         const { children, dispatch } = this.props;

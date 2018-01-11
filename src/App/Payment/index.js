@@ -8,7 +8,7 @@ class Payment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            show: 0,
+            show: 1,
             orderInfo: {}
         }
     }
@@ -21,14 +21,24 @@ class Payment extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        const self = this;
         // 需要的机器人配置
         const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: 55 };
         // ws请求
         socketSend(info, (res) => {
             switch (res.messageType) {
-                case 'ORDER':
-                    console.log(res.body)
+                case 'NOTIFICATION':
+                    // 这里每一步需要做至少4S等待
+                    // 第三步
+                    if (res.body.state == 3) {
+                        self.setState({ show: 3 })
+                    }
+
+                    // 第二步
+                    if (res.body.state == 1) {
+                        self.setState({ show: 2 })
+                    }
                     break;
                 default:
                     break;
@@ -42,7 +52,7 @@ class Payment extends React.Component {
         return (
             <div className="payment">
                 {
-                    show === 0
+                    show === 1
                     &&
                     <div className="paymentState">
                         <div className="picon icon1"></div>
@@ -57,7 +67,7 @@ class Payment extends React.Component {
                     </div>
                 }
                 {
-                    show === 1
+                    show === 2
                     &&
                     <div className="paymentState">
                         <div className="picon icon2"></div>
@@ -73,7 +83,7 @@ class Payment extends React.Component {
                 }
 
                 {
-                    show === 2
+                    show === 3
                     &&
                     <div className="paymentState">
                         <div className="picon icon3"></div>
@@ -105,7 +115,7 @@ class Payment extends React.Component {
                             <p>
                                 {
                                     applianceList.map((t, i) => {
-                                        return <var key={i}>{i+1}X {t.appliance.name}<br /></var>
+                                        return <var key={i}>{i + 1}X {t.appliance.name}<br /></var>
                                     })
                                 }
                             </p>
