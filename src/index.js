@@ -15,8 +15,9 @@ const ERROR_MSG_DURATION = 3; // 3 秒
 const app = dva({
 	history: useRouterHistory(createHashHistory)({ queryKey: false }),
 	onError(e) {
-	},
+	}
 });
+
 
 // 2. Plugins
 app.use(createLoading());

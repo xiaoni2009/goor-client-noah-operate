@@ -25,13 +25,29 @@ class Header extends React.Component {
 
     render() {
         const { settingShow } = this.state;
+        const { location } = this.props;
+        let sett = false;
+
+        if (location.hash.indexOf('settings') >= 0) {
+            sett = true
+        }
+
         return (
             <div className="header">
-                <img src="./images/headerbg.png" />
                 {
-                    settingShow
-                    &&
-                    <div onClick={this.jumpSetting} className="settingIcon"><i></i></div>
+                    sett
+                        ?
+                        <div>另一个</div>
+                        :
+
+                        <div>
+                            <img src="./images/headerbg.png" />
+                            {
+                                settingShow
+                                &&
+                                <div onClick={this.jumpSetting} className="settingIcon"><i></i></div>
+                            }
+                        </div>
                 }
             </div>
         )

@@ -18,11 +18,11 @@ export default class ReactConfirmAlert extends Component {
     };
 
     static defaultProps = {
-        title: false,
-        message: false,
+        title: '',
+        message: '',
         childrenElement: () => null,
-        confirmLabel: false,
-        cancelLabel: false,
+        confirmLabel: '',
+        cancelLabel: '',
         onConfirm: () => null,
         onCancel: () => null
     };
@@ -43,7 +43,7 @@ export default class ReactConfirmAlert extends Component {
     };
 
     render() {
-        const { title, message, confirmLabel, cancelLabel, childrenElement } = this.props;
+        const { title = '', message = '', confirmLabel = '', cancelLabel = '', childrenElement } = this.props;
 
         return (
             <div className="react-confirm-alert-overlay">

@@ -6,9 +6,6 @@ import App from './app';
 import Home from 'App/Home';
 import HomeModel from 'App/Home/model';
 
-import Settings from 'App/Settings';
-import SettingsModel from 'App/Settings/model';
-
 import Opera from 'App/Opera';
 import OperaModel from 'App/Opera/model';
 
@@ -32,8 +29,25 @@ import LoginModel from 'App/Login/model';
 import Initial from 'App/Initial';
 import InitialModel from 'App/Initial/model';
 
+import Settings from 'App/Settings/Default';
+import SettingsModel from 'App/Settings/Default/model';
+
+import SettingsSystem from 'App/Settings/System';
+
+import SettingsOpera from 'App/Settings/Opera';
+
+import SettingsAppliance from 'App/Settings/Appliance';
+
+
 //
-import { locals } from 'Utils'
+import { locals } from 'Utils';
+const userInfo = locals.get('userInfo');
+// 
+function redirectToLogin(nextState, replace) {
+	if(!userInfo || !userInfo.mac) {
+		replace({pathname: '/'});
+	}
+}
 
 // 动态model
 const cached = {};
@@ -45,7 +59,7 @@ const registerModel = (app, model) => {
 };
 
 // 配置路径
-function childRoutes(app){
+function childRoutes(app) {
 	return [
 		{
 			path: 'home',
@@ -58,22 +72,16 @@ function childRoutes(app){
 		{
 			path: 'appliance',
 			name: 'appliance',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				registerModel(app, ApplianceModel);
 				require.ensure([], (require) => { cb(null, Appliance); }, 'appliance');
 			},
 		},
 		{
-			path: 'settings',
-			name: 'settings',
-			getComponent(nextState, cb) {
-				registerModel(app, SettingsModel);
-				require.ensure([], (require) => { cb(null, Settings); }, 'settings');
-			},
-		},
-		{
 			path: 'order',
 			name: 'order',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				// registerModel(app, OrderModel);
 				require.ensure([], (require) => { cb(null, Order); }, 'order');
@@ -82,6 +90,7 @@ function childRoutes(app){
 		{
 			path: 'opera',
 			name: 'opera',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				registerModel(app, OperaModel);
 				require.ensure([], (require) => { cb(null, Opera); }, 'opera');
@@ -90,6 +99,7 @@ function childRoutes(app){
 		{
 			path: 'payment',
 			name: 'payment',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				registerModel(app, PaymentModel);
 				require.ensure([], (require) => { cb(null, Payment); }, 'payment');
@@ -98,6 +108,7 @@ function childRoutes(app){
 		{
 			path: 'depot',
 			name: 'depot',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				registerModel(app, DepotModel);
 				require.ensure([], (require) => { cb(null, Depot); }, 'depot');
@@ -114,9 +125,40 @@ function childRoutes(app){
 		{
 			path: 'initial',
 			name: 'initial',
+			onEnter: redirectToLogin,
 			getComponent(nextState, cb) {
 				registerModel(app, InitialModel);
 				require.ensure([], (require) => { cb(null, Initial); }, 'initial');
+			},
+		},
+		{
+			path: 'settings',
+			name: 'settings',
+			onEnter: redirectToLogin,
+			getComponent(nextState, cb) {
+				registerModel(app, SettingsModel);
+				require.ensure([], (require) => { cb(null, Settings); }, 'settings');
+			},
+		},
+		{
+			path: 'settings/system',
+			name: 'SettingsSystem',
+			getComponent(nextState, cb) {
+				require.ensure([], (require) => { cb(null, SettingsSystem); }, 'settingssystem');
+			},
+		},
+		{
+			path: 'settings/opera',
+			name: 'SettingsOpera',
+			getComponent(nextState, cb) {
+				require.ensure([], (require) => { cb(null, SettingsOpera); }, 'settingsopera');
+			},
+		},
+		{
+			path: 'settings/appliance',
+			name: 'SettingsAppliance',
+			getComponent(nextState, cb) {
+				require.ensure([], (require) => { cb(null, SettingsAppliance); }, 'settingsappliance');
 			},
 		},
 		{
@@ -131,9 +173,10 @@ function childRoutes(app){
 
 //
 const Routers = function ({ history, app }) {
-	const userInfo = locals.get('userInfo');
 	let routes = [];
-//	if(userInfo){
+
+	// 判断是否初始化过
+	if (userInfo && userInfo.mac) {
 		routes = [
 			{
 				path: '/',
@@ -144,18 +187,19 @@ const Routers = function ({ history, app }) {
 				childRoutes: childRoutes(app)
 			}
 		];
-	// }else{
-	// 	routes = [
-	// 		{
-	// 			path: '/',
-	// 			component: App,
-	// 			getIndexRoute(nextState, cb) {
-	// 				require.ensure([], (require) => { cb(null, { component: Login }); }, 'login');
-	// 			},
-	// 			childRoutes: childRoutes(app)
-	// 		}
-	// 	];
-	// }
+	} else {
+		routes = [
+			{
+				path: '/',
+				component: App,
+				getIndexRoute(nextState, cb) {
+					registerModel(app, LoginModel);
+					require.ensure([], (require) => { cb(null, { component: Login }); }, 'login');
+				},
+				childRoutes: childRoutes(app)
+			}
+		];
+	}
 
 	return <Router history={history} routes={routes} />;
 };

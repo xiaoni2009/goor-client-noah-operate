@@ -10,7 +10,9 @@ class Initial extends React.Component {
         this.state = {
             index: 1,
             type: null,
-            stationId: null
+            typeId: null,
+            stationId: null,
+            stationName: ''
         }
 
         this.confirm = this.confirm.bind(this);
@@ -27,15 +29,16 @@ class Initial extends React.Component {
     // 选择站类型 选择站
     confirm() {
         const self = this;
+        const { type, typeId } = self.state;
+    
         confirmAlert({
-            title: '此设备将会用于无菌器械包室，是否确认？',
+            title: '此设备将会用于'+(typeId == '1' ? '无菌器械包室' : '手术间') +'，是否确认？',
             message: '',
             confirmLabel: '确认',
             cancelLabel: '取消',
             onConfirm() {
                 const { dispatch } = self.props;
-                const { type } = self.state;
-        
+
                 self.setState({ index: 2 });
                 dispatch({ type: 'Initial/query', payload: { type } });
             }
@@ -53,21 +56,29 @@ class Initial extends React.Component {
     }
 
     // 选择站
-    setStation(stationId) {
-        this.setState({ stationId })
+    setStation(stationId, stationName) {
+        this.setState({ stationId, stationName })
     }
 
     // 绑定站
     stationBind() {
-        const { dispatch } = self.props;
-        const { type, stationId } = this.state;
-        const info = {
-            password: 1234,
-            mac: '',
-            station: stationId,
-            type
-        }
-        dispatch({ type: 'Initial/bind', payload: { info } });
+        const { dispatch } = this.props;
+        const { typeId, stationId, stationName } = this.state;
+
+        confirmAlert({
+            title: '此设备将会用于'+stationName+'，是否确认？',
+            message: '',
+            confirmLabel: '确认',
+            cancelLabel: '取消',
+            onConfirm() {
+                const info = {
+                    password: 1234,
+                    station: { id: stationId },
+                    type: typeId
+                }
+                dispatch({ type: 'Initial/bind', payload: { info } });
+            }
+        });
     }
 
     render() {
@@ -82,8 +93,8 @@ class Initial extends React.Component {
                     <div className="types">
                         <h3>请选择此设备的使用场所</h3>
                         <div className="initType">
-                            <i className={'initAppliance ' + (type === 4 && 'active')} onClick={() => { this.setState({ type: 4 }) }}></i>
-                            <i className={'initOpera ' + (type === 5 && 'active')} onClick={() => { this.setState({ type: 5 }) }}></i>
+                            <i className={'initAppliance ' + (type === 4 && 'active')} onClick={() => { this.setState({ type: 4, typeId: 2 }) }}></i>
+                            <i className={'initOpera ' + (type === 5 && 'active')} onClick={() => { this.setState({ type: 5, typeId: 1 }) }}></i>
                         </div>
 
                         <div className="initBut">
@@ -108,7 +119,7 @@ class Initial extends React.Component {
                                 data.map((t, i) => {
                                     if (t.robotAccess === 0) {
                                         return (
-                                            <li className={stationId == t.id && 'active'} key={i} onClick={() => { this.setStation(t.id) }}><span>{t.name}</span></li>
+                                            <li className={stationId == t.id && 'active'} key={i} onClick={() => { this.setStation(t.id, t.name) }}><span>{t.name}</span></li>
                                         )
                                     }
 

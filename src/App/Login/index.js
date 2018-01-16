@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import './style.less';
 import { config } from 'Utils'
-import { Button } from 'Components';
+import { Button, confirmAlert } from 'Components';
 
 class Login extends React.Component {
     constructor(props) {
@@ -63,12 +63,16 @@ class Login extends React.Component {
         let inputVal = this.state.inputVal;
         inputVal = inputVal.join("");
         if(inputVal === config.loginPassword) {
-            const { dispatch } = this.props;
-            const mac = config.guid();
-            dispatch(routerRedux.push('initial'));
-            // dispatch({ type: 'Login/query', payload: { mac } });
+            const { dispatch, login } = this.props;
+            dispatch({ type: 'Login/query', payload: {} });
         }else {
-            alert('登录密码错误！');
+            confirmAlert({
+                title: '登录密码错误！',
+                confirmLabel: '确认',
+                onConfirm() {
+
+                }
+            });
         }
         
     }

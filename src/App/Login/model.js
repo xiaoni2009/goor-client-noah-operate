@@ -1,23 +1,33 @@
-import { QUERY} from './service';
+import { QUERY } from './service';
+import { routerRedux } from 'dva/router';
+import { locals } from 'Utils';
 
 export default {
 	namespace: 'Login',
 	state: {
-		data: []
+		data: {}
 	},
 	subscriptions: {
 
 	},
 	effects: {
 		*query({ payload }, { call, put }) {
-            const res = yield call(QUERY, payload.mac);
-            if(res.code === 1){
-
-            }
-            
-            if(res.code === 0){
-                
-            }
+			const res = yield call(QUERY);
+			if(res.code === 0 ){
+				const d = res.data;
+				const info = {
+					mac: d.mac,
+					station: {
+						id: d.station.id || '',
+						name: d.station.name || ''
+					},
+					type: d.type
+				}
+				locals.set('userInfo', info);
+				yield put(routerRedux.go('/'));
+			}else {
+				yield put(routerRedux.push('initial'));
+			}
 		},
 	},
 	reducers: {
