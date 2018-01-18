@@ -77,14 +77,12 @@ class Order extends React.Component {
 
     // 提交订单
     orderSub() {
-
+        const {station} = locals.get('userInfo');
         //
         const { dispatch, order } = this.props;
         const { extra, bag } = this.props.order;
         let info = {
-            station: {
-                "id": 55 // 下单手术室站
-            },
+            station, // 下单手术室站,
             applianceList: []
         }
 
@@ -100,10 +98,10 @@ class Order extends React.Component {
         }
 
         // 额外器械列表
-        if(extra.length > 0) {
-            extra.map((t)=>{
+        if (extra.length > 0) {
+            extra.map((t) => {
                 const t_ = t.appliance;
-                if(t_.id) {
+                if (t_.id) {
                     info.applianceList.push({
                         appliance: {
                             id: t_.id,
@@ -113,7 +111,7 @@ class Order extends React.Component {
                         number: t.number
                     })
                 }
-            })   
+            })
         }
 
         //

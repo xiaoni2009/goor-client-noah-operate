@@ -37,11 +37,11 @@ class Header extends React.Component {
                 {
                     sett
                         ?
-                        <div>另一个</div>
+                        <div><img src="./images/headerbg2.png" /></div>
                         :
 
                         <div>
-                            <img src="./images/headerbg.png" />
+                            <img src="./images/headerbg1.png" />
                             {
                                 settingShow
                                 &&

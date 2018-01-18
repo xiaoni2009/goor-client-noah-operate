@@ -44,8 +44,8 @@ import { locals } from 'Utils';
 const userInfo = locals.get('userInfo');
 // 
 function redirectToLogin(nextState, replace) {
-	if(!userInfo || !userInfo.mac) {
-		replace({pathname: '/'});
+	if (!userInfo || !userInfo.mac) {
+		replace({ pathname: '/' });
 	}
 }
 
@@ -59,78 +59,11 @@ const registerModel = (app, model) => {
 };
 
 // 配置路径
+let routerType = null;
 function childRoutes(app) {
-	return [
-		{
-			path: 'home',
-			name: 'home',
-			getComponent(nextState, cb) {
-				registerModel(app, HomeModel);
-				require.ensure([], (require) => { cb(null, Home); }, 'home');
-			},
-		},
-		{
-			path: 'appliance',
-			name: 'appliance',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				registerModel(app, ApplianceModel);
-				require.ensure([], (require) => { cb(null, Appliance); }, 'appliance');
-			},
-		},
-		{
-			path: 'order',
-			name: 'order',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				// registerModel(app, OrderModel);
-				require.ensure([], (require) => { cb(null, Order); }, 'order');
-			},
-		},
-		{
-			path: 'opera',
-			name: 'opera',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				registerModel(app, OperaModel);
-				require.ensure([], (require) => { cb(null, Opera); }, 'opera');
-			},
-		},
-		{
-			path: 'payment',
-			name: 'payment',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				registerModel(app, PaymentModel);
-				require.ensure([], (require) => { cb(null, Payment); }, 'payment');
-			},
-		},
-		{
-			path: 'depot',
-			name: 'depot',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				registerModel(app, DepotModel);
-				require.ensure([], (require) => { cb(null, Depot); }, 'depot');
-			},
-		},
-		{
-			path: 'login',
-			name: 'login',
-			getComponent(nextState, cb) {
-				registerModel(app, LoginModel);
-				require.ensure([], (require) => { cb(null, Login); }, 'login');
-			},
-		},
-		{
-			path: 'initial',
-			name: 'initial',
-			onEnter: redirectToLogin,
-			getComponent(nextState, cb) {
-				registerModel(app, InitialModel);
-				require.ensure([], (require) => { cb(null, Initial); }, 'initial');
-			},
-		},
+	let routerList = [];
+	// 默认路径
+	const defaults = [
 		{
 			path: 'settings',
 			name: 'settings',
@@ -169,6 +102,96 @@ function childRoutes(app) {
 			},
 		},
 	]
+
+	// 登录/初始化
+	if(routerType === '0') {
+		routerList =  [
+			{
+				path: 'login',
+				name: 'login',
+				getComponent(nextState, cb) {
+					registerModel(app, LoginModel);
+					require.ensure([], (require) => { cb(null, Login); }, 'login');
+				},
+			},
+			{
+				path: 'initial',
+				name: 'initial',
+				// onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					registerModel(app, InitialModel);
+					require.ensure([], (require) => { cb(null, Initial); }, 'initial');
+				},
+			},
+		]
+	}
+
+	// 无菌器械室
+	if(routerType === '1'){
+		routerList = [
+			{
+				path: 'depot',
+				name: 'depot',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					registerModel(app, DepotModel);
+					require.ensure([], (require) => { cb(null, Depot); }, 'depot');
+				},
+			}
+		].concat(defaults);
+	}
+
+	// 手术室下单
+	if(routerType === '2') {
+		routerList = [
+			{
+				path: 'home',
+				name: 'home',
+				getComponent(nextState, cb) {
+					registerModel(app, HomeModel);
+					require.ensure([], (require) => { cb(null, Home); }, 'home');
+				},
+			},
+			{
+				path: 'appliance',
+				name: 'appliance',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					registerModel(app, ApplianceModel);
+					require.ensure([], (require) => { cb(null, Appliance); }, 'appliance');
+				},
+			},
+			{
+				path: 'order',
+				name: 'order',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					// registerModel(app, OrderModel);
+					require.ensure([], (require) => { cb(null, Order); }, 'order');
+				},
+			},
+			{
+				path: 'opera',
+				name: 'opera',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					registerModel(app, OperaModel);
+					require.ensure([], (require) => { cb(null, Opera); }, 'opera');
+				},
+			},
+			{
+				path: 'payment',
+				name: 'payment',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					registerModel(app, PaymentModel);
+					require.ensure([], (require) => { cb(null, Payment); }, 'payment');
+				},
+			},
+		].concat(defaults);
+	}
+
+	return routerList;
 }
 
 //
@@ -177,17 +200,34 @@ const Routers = function ({ history, app }) {
 
 	// 判断是否初始化过
 	if (userInfo && userInfo.mac) {
-		routes = [
-			{
-				path: '/',
-				component: App,
-				getIndexRoute(nextState, cb) {
-					require.ensure([], (require) => { cb(null, { component: Home }); }, 'home');
-				},
-				childRoutes: childRoutes(app)
-			}
-		];
+		if (userInfo.type === 1) {
+			routerType = '1';
+			routes = [
+				{
+					path: '/',
+					component: App,
+					getIndexRoute(nextState, cb) {
+						registerModel(app, DepotModel);
+						require.ensure([], (require) => { cb(null, { component: Depot }); }, 'depot');
+					},
+					childRoutes: childRoutes(app)
+				}
+			];
+		} else {
+			routerType = '2';
+			routes = [
+				{
+					path: '/',
+					component: App,
+					getIndexRoute(nextState, cb) {
+						require.ensure([], (require) => { cb(null, { component: Home }); }, 'home');
+					},
+					childRoutes: childRoutes(app)
+				}
+			];
+		}
 	} else {
+		routerType = '0';
 		routes = [
 			{
 				path: '/',

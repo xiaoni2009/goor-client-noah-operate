@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { agvWs } from 'Utils'
 import './style.less';
 import { Button } from 'Components';
+import { locals } from 'Utils'
 const { socketSend } = agvWs;
 
 let fetchOrder = true;
@@ -25,6 +26,7 @@ class Depot extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        const { station } = locals.get('userInfo');
         const { data } = nextProps.depot;
         const self = this;
 
@@ -32,7 +34,7 @@ class Depot extends React.Component {
             self.setState({ orderList: data });
             fetchOrder = false;
             // 需要的机器人配置
-            const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: 54 };
+            const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: station.id || '' };
             // ws请求
             socketSend(info, (res) => {
                 switch (res.messageType) {
@@ -119,18 +121,18 @@ class Depot extends React.Component {
                         <ul className="depot">
                             {
                                 orderList.length > 0
-                                ?
-                                orderList.map((t, i) => {
-                                    const name = t.operationType ? t.operationType.name : '临时器械申请'
-                                    return (
-                                        <li onClick={() => { this.depotView(t, i) }} key={i}>
-                                            <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
-                                            <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>{t.createTime}</time></div>
-                                        </li>
-                                    )
-                                })
-                                :
-                                <div className="noOrder"><i></i><span>当前无待处理任务</span></div>
+                                    ?
+                                    orderList.map((t, i) => {
+                                        const name = t.operationType ? t.operationType.name : '临时器械申请'
+                                        return (
+                                            <li onClick={() => { this.depotView(t, i) }} key={i}>
+                                                <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
+                                                <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>{t.createTime}</time></div>
+                                            </li>
+                                        )
+                                    })
+                                    :
+                                    <div className="noOrder"><i></i><span>当前无待处理任务</span></div>
                             }
                         </ul>
                 }

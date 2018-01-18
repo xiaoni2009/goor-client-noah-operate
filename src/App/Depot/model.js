@@ -8,7 +8,7 @@ export default {
 	subscriptions: {
 		setup({ dispatch, history }) {
 			return history.listen(({ pathname, query }) => {
-				if (pathname === '/depot') {
+				if (pathname === '/depot' || pathname === '/') {
 					dispatch({ type: 'query', payload: query });
 				}
 			});
