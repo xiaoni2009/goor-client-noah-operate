@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { confirmAlert } from 'Components';
+import { confirmAlert, Button } from 'Components';
 import { locals } from 'Utils'
 import './style.less'
-import { Button } from 'Components';
+import OperaConfirm from './OperaConfirm'
 
 class Order extends React.Component {
     constructor(props) {
@@ -57,6 +57,45 @@ class Order extends React.Component {
         }
     }
 
+    // 修改数量
+    changeEditNum(i, t) {
+        const self = this;
+        const { extra } = self.props.order;
+        const { dispatch } = self.props;
+
+        // 缓存选中值
+        let value_ = t.number;
+
+        // OperaConfirm配置
+        const ocProps = {
+            item: t,
+            operaNum: (num) => {
+                value_ = num;
+            }
+        }
+
+        // 弹出框修改数量
+        confirmAlert({
+            title: '',
+            message: '',
+            childrenElement: () => {
+                return (
+                    <OperaConfirm {...ocProps} />
+                )
+            },
+            confirmLabel: '确认',
+            cancelLabel: '取消',
+            onConfirm() {
+                extra[i].number = value_;
+                dispatch({ type: 'Order/save', payload: { extra } });
+                self.setState({ editIndex: null });
+            },
+            onCancel() {
+                self.setState({ editIndex: null });
+            }
+        })
+    }
+
     // 返回并取消
     orderClear(bool) {
         const { dispatch } = this.props;
@@ -77,7 +116,7 @@ class Order extends React.Component {
 
     // 提交订单
     orderSub() {
-        const {station} = locals.get('userInfo');
+        const { station } = locals.get('userInfo');
         //
         const { dispatch, order } = this.props;
         const { extra, bag } = this.props.order;
@@ -150,7 +189,7 @@ class Order extends React.Component {
                                                 editIndex === i
                                                 &&
                                                 <div className="editOpera">
-                                                    <Button type="change" />
+                                                    <Button type="change" onClick={() => { this.changeEditNum(i, t) }} />
                                                     <Button type="delete" onClick={() => { this.removeBut(i, t) }} />
                                                 </div>
                                             }

@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { SearchKeyword, confirmAlert } from 'Components';
+import { SearchKeyword, confirmAlert, Error } from 'Components';
 import OperaConfirm from './OperaConfirm'
 
 import './style.less';
@@ -30,7 +30,7 @@ class Opera extends React.Component {
         // OperaConfirm配置
         const ocProps = {
             item: t,
-            operaNum:(num)=>{
+            operaNum: (num) => {
                 value_ = num;
             }
         }
@@ -87,17 +87,21 @@ class Opera extends React.Component {
             <div className="opera">
                 <SearchKeyword {...keywordProps} />
                 <div className="searchList">
-                    <ul>
-                        {
-                            (data && data.length > 0)
-                            &&
-                            data.map((t, i) => {
-                                return (
-                                    <li onClick={() => { this.setExtra(t) }} key={i}><span className={t.name.length > 12 && 'small'}>{t.name}</span><var>{t.packageType ? t.packageType.name : ''}</var></li>
-                                )
-                            })
-                        }
-                    </ul>
+                    {
+                        (data && data.length > 0)
+                            ?
+                            <ul>
+                                {
+                                    data.map((t, i) => {
+                                        return (
+                                            <li onClick={() => { this.setExtra(t) }} key={i}><span className={t.name.length > 12 && 'small'}>{t.name}</span><var>{t.packageType ? t.packageType.name : ''}</var></li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                            :
+                            <Error />
+                    }
                 </div>
             </div>
         )

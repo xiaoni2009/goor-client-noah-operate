@@ -1,5 +1,6 @@
 import { routerRedux } from 'dva/router';
 import { QUERY, BIND, NOT_STATION } from './service';
+import { locals } from 'Utils';
 
 export default {
     namespace: 'SettingsSystem',
@@ -29,20 +30,11 @@ export default {
 		*bind({ payload }, { call, put }) {
 			const res = yield call(BIND, payload.info);
 			if(res.code === 0){
-				const d = res.data;
-				let info = {}
-				if(d.mac) {
-					info = {
-						mac: d.mac,
-						station: {
-							id: d.station.id || '',
-							name: d.station.name || ''
-						},
-						type: d.type
-					}
-				}
-				locals.set('userInfo', info);
-				// 绑定成功
+                // 绑定成功
+                // if(payload.stationType === 5){
+                    locals.remove('userInfo');
+                    yield put(routerRedux.go('/'));
+                // }
 			}
         },
         *notstation({ payload }, { call, put }) {

@@ -38,7 +38,7 @@ import SettingsSystemModel from 'App/Settings/System/model';
 import SettingsOpera from 'App/Settings/Opera';
 
 import SettingsAppliance from 'App/Settings/Appliance';
-
+import SettingsApplianceModel from 'App/Settings/Appliance/model';
 
 //
 import { locals } from 'Utils';
@@ -62,6 +62,7 @@ const registerModel = (app, model) => {
 // 配置路径
 let routerType = null;
 function childRoutes(app) {
+
 	let routerList = [];
 	// 默认路径
 	const defaults = [
@@ -93,6 +94,7 @@ function childRoutes(app) {
 			path: 'settings/appliance',
 			name: 'SettingsAppliance',
 			getComponent(nextState, cb) {
+				registerModel(app, SettingsApplianceModel);
 				require.ensure([], (require) => { cb(null, SettingsAppliance); }, 'settingsappliance');
 			},
 		},
@@ -210,7 +212,7 @@ const Routers = function ({ history, app }) {
 
 	// 判断是否初始化过
 	if (userInfo && userInfo.mac) {
-		if (userInfo.type === 1) {
+		if (userInfo.type === 5) {
 			routerType = '1';
 			routes = [
 				{

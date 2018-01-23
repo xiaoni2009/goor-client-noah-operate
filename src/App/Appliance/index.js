@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import './style.less';
-import { SearchKeyword } from 'Components'
+import { SearchKeyword, Error } from 'Components'
 
 class Appliance extends React.Component {
     constructor(props) {
@@ -10,7 +10,7 @@ class Appliance extends React.Component {
         this.setbao = this.setBag.bind(this);
     }
 
-    setBag(bag){
+    setBag(bag) {
         const { dispatch } = this.props;
         dispatch({ type: 'Order/query', payload: { bag } });
         dispatch({ type: 'Appliance/save', payload: { data: [] } });
@@ -36,17 +36,21 @@ class Appliance extends React.Component {
             <div className="appliance">
                 <SearchKeyword {...keywordProps} />
                 <div className="searchList">
-                    <ul>
-                        {
-                            (data && data.length > 0)
-                            &&
-                            data.map((t, i)=>{
-                                return (
-                                    <li onClick={()=>{ this.setBag(t) }} key={i}><span className={t.name.length > 50 && 'small'}>{t.name}</span></li>
-                                )
-                            })
-                        }
-                    </ul>
+                {
+                    (data && data.length > 0)
+                        ?
+                        <ul>
+                            {
+                                data.map((t, i) => {
+                                    return (
+                                        <li onClick={() => { this.setBag(t) }} key={i}><span className={t.name.length > 50 && 'small'}>{t.name}</span></li>
+                                    )
+                                })
+                            }
+                        </ul>
+                        :
+                        <Error />
+                }
                 </div>
             </div>
         )

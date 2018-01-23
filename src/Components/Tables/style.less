@@ -1,0 +1,27 @@
+.dataTable{
+    table {
+        border: none; width: 100%; background: #FFFFFF; box-shadow: 0 1px 3px 0 #DCE8FF;
+        thead {
+            background: #ABD9FF; height: 84px; line-height: 84px;
+            th {font-size: 36px; color: #00569C; font-weight: normal}
+        }
+        tbody {
+            font-size: 32px; color: #3996F6; text-align: center;
+            tr {height: 72px; line-height: 72px;}
+            tr:nth-child(odd) {
+                background: #fff
+            }
+            tr:nth-child(even) {
+                background: #E2F2FF;
+            }
+            tr:hover {
+                background: rgba(110,190,255,.52);
+            }
+        }
+    }
+    .pages {
+        margin-top: 20px; float: right;
+        li {width: 42px; height: 42px; font-size: 20px; color: #BABABA; letter-spacing: 0; text-align: center; line-height: 42px; display: inline-block}
+        li.pActive {background: #E2F2FF; border-radius: 4px; color: #3996F6;}
+    }
+}

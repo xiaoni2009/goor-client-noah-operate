@@ -99,7 +99,7 @@ class SettingsSystem extends React.Component {
                 station: { id: stationId },
                 type: stationType
             }
-            dispatch({ type: 'SettingsSystem/bind', payload: { info } });
+            dispatch({ type: 'SettingsSystem/bind', payload: { info, stationType } });
         }
 
         if(index ===2) {
@@ -153,7 +153,7 @@ class SettingsSystem extends React.Component {
                                                 }
                                             </ul>
                                             :
-                                            <div>空</div>
+                                            <div className="none">无数据</div>
                                     }
                                 </div>
                             }
@@ -174,7 +174,7 @@ class SettingsSystem extends React.Component {
                                                 }
                                             </ul>
                                             :
-                                            <div>空</div>
+                                            <div className="none">无数据</div>
                                     }
                                 </div>
                             }
