@@ -33,6 +33,7 @@ import Settings from 'App/Settings/Default';
 import SettingsModel from 'App/Settings/Default/model';
 
 import SettingsSystem from 'App/Settings/System';
+import SettingsSystemModel from 'App/Settings/System/model';
 
 import SettingsOpera from 'App/Settings/Opera';
 
@@ -77,6 +78,7 @@ function childRoutes(app) {
 			path: 'settings/system',
 			name: 'SettingsSystem',
 			getComponent(nextState, cb) {
+				registerModel(app, SettingsSystemModel);
 				require.ensure([], (require) => { cb(null, SettingsSystem); }, 'settingssystem');
 			},
 		},
@@ -121,6 +123,14 @@ function childRoutes(app) {
 				getComponent(nextState, cb) {
 					registerModel(app, InitialModel);
 					require.ensure([], (require) => { cb(null, Initial); }, 'initial');
+				},
+			},
+			{
+				path: '*',
+				name: 'error',
+				onEnter: redirectToLogin,
+				getComponent(nextState, cb) {
+					require.ensure([], (require) => { cb(null, Error); }, 'error');
 				},
 			},
 		]
