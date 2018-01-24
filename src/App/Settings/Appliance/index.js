@@ -13,10 +13,11 @@ class SettingsAppliance extends React.Component {
     }
 
     render() {
-        const { data } = this.props.sappliance;
+        const { sappliance, dispatch } = this.props;
         // 额外器械类别
         const listProps = {
-            data
+            data: sappliance.data,
+            dispatch
         }
 
         return (
@@ -37,7 +38,7 @@ class SettingsAppliance extends React.Component {
 
 //参数类型验证
 SettingsAppliance.propTypes = {
-    dispatch: PropTypes.func,
+    dispatch: PropTypes.func
 }
 
 // state注入进来

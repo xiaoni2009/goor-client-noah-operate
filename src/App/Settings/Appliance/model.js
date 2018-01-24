@@ -18,7 +18,10 @@ export default {
     },
     effects: {
         *query({ payload }, { call, put, select }) {
-            const appliance = yield call(QUERY, {});
+            const res = yield call(QUERY, payload);
+            if(res.code === 0) {
+                yield put({ type: 'save', payload: { data: res.data } });
+            }
         }
     },
     reducers: {
