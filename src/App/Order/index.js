@@ -163,10 +163,15 @@ class Order extends React.Component {
         const { editIndex } = this.state;
         // const { order } = this.props;
         // const { applianceList = [], id, name } = order.bag;
-        const { extra, bag } = this.props.order;
-
+        const { extra, bag, app } = this.props.order;
+        const { userInfo } = this.props.app;
         return (
             <div className="order">
+                {
+                    userInfo.station
+                    &&
+                    <div className="stationName"><span>{userInfo.station.name}</span></div>
+                }
                 <div className="orderList">
                     {
                         bag.id
@@ -223,7 +228,8 @@ Order.propTypes = {
 // state注入进来
 function mapStateToProps(state, loading) {
     return {
-        order: state.Order
+        order: state.Order,
+        app: state.app
     };
 }
 

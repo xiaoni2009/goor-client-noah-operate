@@ -24,7 +24,8 @@ export default {
 					type: d.type
 				}
 				locals.set('userInfo', info);
-				yield put(routerRedux.go('/'));
+				// yield put(routerRedux.go('/'));
+				window.location.href= '/'
 			}else {
 				yield put(routerRedux.push('initial'));
 			}

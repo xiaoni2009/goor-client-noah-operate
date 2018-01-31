@@ -1,10 +1,13 @@
 import { config } from 'Utils'
 import { routerRedux } from 'dva/router'
+import { locals, agvWs } from 'Utils'
+
+const userinfo = locals.get('userInfo') || {};
 
 export default {
 	namespace: 'app',
 	state: {
-
+		userInfo: userinfo || {}
 	},
 	subscriptions: {
 
@@ -13,6 +16,8 @@ export default {
 
 	},
 	reducers: {
-		
+        save(state, { payload }) {
+            return { ...state, ...payload };
+        },
 	},
 }

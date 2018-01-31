@@ -1,15 +1,19 @@
 import React from 'react'
 import { locals, agvWs } from 'Utils'
+import { Link } from 'dva/router';
 import './style.less'
 
 const { socketSend } = agvWs;
+let getTime = null;
+
 
 class Payment extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             show: 1,
-            orderInfo: {}
+            orderInfo: {},
+            back: false
         }
     }
 
@@ -17,6 +21,7 @@ class Payment extends React.Component {
         let orderInfo = locals.get('orderInfo');
         orderInfo = orderInfo ? JSON.parse(orderInfo) : null;
         if (orderInfo) {
+            getTime = new Date().getTime() + 4000;
             this.setState({ orderInfo });
         }
     }
@@ -24,30 +29,59 @@ class Payment extends React.Component {
     componentDidMount() {
         const self = this;
         // 需要的机器人配置
-        const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: 55 };
-        // ws请求
-        socketSend(info, (res) => {
-            switch (res.messageType) {
-                case 'NOTIFICATION':
-                    // 这里每一步需要做至少4S等待
-                    // 第三步
-                    if (res.body.state == 3) {
-                        self.setState({ show: 3 })
-                    }
+        const userInfo = locals.get('userInfo');
 
-                    // 第二步
-                    if (res.body.state == 1) {
-                        self.setState({ show: 2 })
-                    }
-                    break;
-                default:
-                    break;
+        // 切换
+        function show(id, back){
+            if(back) {
+                self.setState({ show: id, back });
+            }else {
+                self.setState({ show: id });
             }
-        });
+        }
+
+        const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: userInfo.station ? userInfo.station.id : null };
+        // ws请求
+        if (info.userId) {
+            socketSend(info, (res) => {
+                const newGetTime = new Date().getTime();
+                switch (res.messageType) {
+                    case 'NOTIFICATION':
+                        // 第二步
+                        if (res.body.state == 1) {
+                            if (newGetTime > getTime) {
+                                show(2);
+                            } else {
+                                setTimeout(function () {
+                                    show(2);
+                                    getTime = new Date().getTime() + 4000;
+                                }, (getTime - newGetTime));
+                            }
+                        }
+
+                        // 这里每一步需要做至少4S等待
+                        // 第三步
+                        if (res.body.state == 3) {
+                            if (newGetTime > getTime) {
+                                show(3, true);
+                            } else {
+                                setTimeout(function () {
+                                    show(3, true);
+                                }, (getTime - newGetTime));
+                            }
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            });
+        } else {
+            console.error('userId为空');
+        }
     }
 
     render() {
-        const { show, orderInfo } = this.state;
+        const { show, orderInfo, back } = this.state;
         const { name, applianceList } = orderInfo;
         return (
             <div className="payment">
@@ -94,7 +128,7 @@ class Payment extends React.Component {
                             <li><var></var></li>
                             <li className="icon"><i className="stateRight"></i><span>待接收</span></li>
                         </ul>
-                        <p>手术包开始准备，请做好接受准备</p>
+                        <p>手术包开始准备，请做好接受准备<small>触摸任意位置返回</small></p>
                     </div>
                 }
 
@@ -123,6 +157,8 @@ class Payment extends React.Component {
                     }
 
                 </div>
+
+                {back && <Link to='/' className="goback"></Link>}
             </div>
         )
     }

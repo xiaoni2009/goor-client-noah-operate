@@ -9,7 +9,7 @@ class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            settingShow: true
+            settingShow: false
         }
         this.jumpSetting = this.jumpSetting.bind(this);
         this.back = this.back.bind(this);

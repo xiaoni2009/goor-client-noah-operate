@@ -85,56 +85,62 @@ class Depot extends React.Component {
                 {
                     depotViewShow
                         ?
-                        <div className="depotView">
-                            <div className="depotViewCo">
-                                {
-                                    view.operationType
-                                    &&
+                        <div>
+                            <div className="stationName"><span>{view.station ? view.station.name : ''}</span></div>
+                            <div className="depotView">
+                                <div className="depotViewCo">
+                                    {
+                                        view.operationType
+                                        &&
+                                        <div className="dList">
+                                            <span>手术类型</span>
+                                            <p>{view.operationType.name}</p>
+                                        </div>
+                                    }
                                     <div className="dList">
-                                        <span>手术类型</span>
-                                        <p>{view.operationType.name}</p>
+                                        <span>器械列表：</span>
+                                        <p className="dlt">
+                                            {
+                                                view.applianceList.map((t, i) => {
+                                                    if (t.appliance) {
+                                                        return (
+                                                            <var key={i}>{i + 1}.{t.appliance.name}  ({t.number}件)</var>
+                                                        )
+                                                    } else {
+                                                        return '';
+                                                    }
+                                                })
+                                            }
+                                        </p>
                                     </div>
-                                }
-                                <div className="dList">
-                                    <span>器械列表：</span>
-                                    <p className="dlt">
-                                        {
-                                            view.applianceList.map((t, i) => {
-                                                if (t.appliance) {
-                                                    return (
-                                                        <var key={i}>{i + 1}.{t.appliance.name}  ({t.number}件)</var>
-                                                    )
-                                                } else {
-                                                    return '';
-                                                }
-                                            })
-                                        }
-                                    </p>
                                 </div>
-                            </div>
-                            <div className="depotViewButton">
-                                <Button type="back" onClick={this.closeDepot} />
-                                <Button type="accept" onClick={() => { this.okDepot(view.id) }} />
+                                <div className="depotViewButton">
+                                    <Button type="back" onClick={this.closeDepot} />
+                                    <Button type="accept" onClick={() => { this.okDepot(view.id) }} />
+                                </div>
                             </div>
                         </div>
                         :
-                        <ul className="depot">
-                            {
-                                orderList.length > 0
-                                    ?
-                                    orderList.map((t, i) => {
-                                        const name = t.operationType ? t.operationType.name : '临时器械申请'
-                                        return (
-                                            <li onClick={() => { this.depotView(t, i) }} key={i}>
-                                                <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
-                                                <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>{t.createTime}</time></div>
-                                            </li>
-                                        )
-                                    })
-                                    :
-                                    <div className="noOrder"><i></i><span>当前无待处理任务</span></div>
-                            }
-                        </ul>
+                        <div>
+                            <div className="depotsName">申请受理列表</div>
+                            <ul className="depot">
+                                {
+                                    orderList.length > 0
+                                        ?
+                                        orderList.map((t, i) => {
+                                            const name = t.operationType ? t.operationType.name : '临时器械申请'
+                                            return (
+                                                <li onClick={() => { this.depotView(t, i) }} key={i}>
+                                                    <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
+                                                    <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>{t.createTime}</time></div>
+                                                </li>
+                                            )
+                                        })
+                                        :
+                                        <div className="noOrder"><i></i><span>当前无待处理任务</span></div>
+                                }
+                            </ul>
+                        </div>
                 }
             </div>
         )

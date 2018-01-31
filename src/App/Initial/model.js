@@ -34,7 +34,6 @@ export default {
 					}
 				}
 				locals.set('userInfo', info);
-				console.log(123)
 				// yield put(routerRedux.go('/'));
 				window.location.href= '/'
 			}

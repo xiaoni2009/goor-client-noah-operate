@@ -65,20 +65,30 @@ class Initial extends React.Component {
         const { dispatch } = this.props;
         const { typeId, stationId, stationName } = this.state;
 
-        confirmAlert({
-            title: '此设备将会用于'+stationName+'，是否确认？',
-            message: '',
-            confirmLabel: '确认',
-            cancelLabel: '取消',
-            onConfirm() {
-                const info = {
-                    password: 1234,
-                    station: { id: stationId },
-                    type: typeId
+        if(stationId) {
+            confirmAlert({
+                title: '此设备将会用于'+stationName+'，是否确认？',
+                message: '',
+                confirmLabel: '确认',
+                cancelLabel: '取消',
+                onConfirm() {
+                    const info = {
+                        password: 1234,
+                        station: { id: stationId },
+                        type: typeId
+                    }
+                    dispatch({ type: 'Initial/bind', payload: { info } });
                 }
-                dispatch({ type: 'Initial/bind', payload: { info } });
-            }
-        });
+            });
+        }else {
+            confirmAlert({
+                title: '请选择站',
+                confirmLabel: '确认',
+                onConfirm() {
+
+                }
+            });
+        }
     }
 
     render() {
