@@ -2,35 +2,37 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import './style.less';
 
-import List from './Block/List'
+//
+let breadcrumb_ = [], bb = null;
+breadcrumb_['add'] = '新增器械';
+breadcrumb_['edit'] = '器械详情';
+breadcrumb_['type'] = '包装方式';
 
 class SettingsAppliance extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            nav: 'list'
+            // breadcrumb: ''
         }
     }
 
     render() {
-        const { sappliance, dispatch } = this.props;
+        const { sappliance, dispatch, children, location } = this.props;
+        const { query } = location;
+
+        //
+        bb = query.type ? breadcrumb_[query.type]: '';
+
         // 额外器械类别
         const listProps = {
-            data: sappliance.data,
+            data: sappliance ? sappliance.data : [],
             dispatch
         }
 
         return (
             <div className="settingsappliance">
-                <div className="breadcrumb"><h3>设置 / 器械信息</h3><small>包装方式设置</small></div>
-                <ul className="sa_header">
-                    <li className="sa_search"><input type="text" placeholder="请输入器械汉字名称或拼音首字母" /></li>
-                    <li className="sa_upload"><span>批量导入</span></li>
-                    <li className="sa_add">添加</li>
-                </ul>
-                <div className="sa_main">
-                    <List {...listProps} />
-                </div>
+                <div className="breadcrumb"><h3>设置 / 器械信息{bb && ' / ' + bb}</h3></div>
+                {children}
             </div>
         )
     }
@@ -38,7 +40,9 @@ class SettingsAppliance extends React.Component {
 
 //参数类型验证
 SettingsAppliance.propTypes = {
-    dispatch: PropTypes.func
+    children: PropTypes.element.isRequired,
+    dispatch: PropTypes.func,
+    location: PropTypes.object
 }
 
 // state注入进来

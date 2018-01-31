@@ -21,6 +21,7 @@ h1, h2, h3, h4, h5, h6{ font-size:100%;font-weight: normal;}
 .fr{float:right;}
 // input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {}
 i {display: inline-block}
+button{outline:none;}
 /* 初始化结束 */
 
 body {background: url(./images/mainbg.png) right bottom no-repeat; height: 1200px}
@@ -50,4 +51,26 @@ body {background: url(./images/mainbg.png) right bottom no-repeat; height: 1200p
         i.button_home_02_normal {background: url(./images/button_home_02_normal.png) top left no-repeat;}
         i.button_home_02_normal:active {background: url(./images/button_home_02_pressed.png) top left no-repeat;}
     }
+}
+
+// from input
+.froms {
+    .label {font-size: 40px; color: #0E8AFF; letter-spacing: 4.11px;}
+    .fromMain {
+        background: #fff; box-shadow: 0 1px 3px 0 #9FA4AF; border-radius: 6px; margin-top: 25px; padding: 40px; display: inline-block; width: 100%; max-height: 820px; min-height: 820px; overflow-y: scroll;
+        li {
+            margin-bottom: 50px;
+            div {display: inline-block; vertical-align: top;}
+            .label {width: 270px; text-align: right;}
+            .co {width: 1250px; margin-left: 20px;}
+            input {border: 1px solid #3996F6; border-radius: 6px; width: 960px; height: 72px; line-height: 72px; box-sizing: border-box; padding: 0 40px; font-size: 36px; color: #0E8AFF; letter-spacing: 3.7px;}
+        }
+    }
+}
+// 
+.flexBox {
+    display:flex;
+    background: #ECF7FF; border: 1px solid #3996F6; border-radius: 6px; width: 900px; height: 180px;
+    .bl {flex:3;}
+    .br {flex:1;}
 }

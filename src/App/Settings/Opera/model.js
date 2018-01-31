@@ -2,14 +2,14 @@ import { routerRedux } from 'dva/router';
 import { QUERY } from './service';
 
 export default {
-    namespace: 'SettingsAppliance',
+    namespace: 'SettingsOpera',
     state: {
         data: []
     },
     subscriptions: {
         setup({ dispatch, history }) {
             return history.listen(({ pathname, query }) => {
-                if (pathname === '/settings/appliance' || pathname === '/settings/appliance/list') {
+                if (pathname === '/settings/opera' || pathname === '/settings/opera/list') {
                     dispatch({ type: 'query', payload: query });
                 }
             });

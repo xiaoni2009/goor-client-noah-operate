@@ -6,8 +6,10 @@ import './style.less'
 class Tables extends React.Component {
     constructor(props) {
         super(props);
+        const { location } = this.props;
+        
         this.state = {
-            thisPage: 1
+            thisPage: location.query ? location.query.page : 1
         }
         this.getPage = this.getPage.bind(this);
     }

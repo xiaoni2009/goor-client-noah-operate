@@ -35,10 +35,17 @@ import SettingsModel from 'App/Settings/Default/model';
 import SettingsSystem from 'App/Settings/System';
 import SettingsSystemModel from 'App/Settings/System/model';
 
-import SettingsOpera from 'App/Settings/Opera';
-
 import SettingsAppliance from 'App/Settings/Appliance';
 import SettingsApplianceModel from 'App/Settings/Appliance/model';
+import SettingsApplianceList from 'App/Settings/Appliance/Block/List';
+import SettingsApplianceEdit from 'App/Settings/Appliance/Block/Edit';
+import SettingsApplianceType from 'App/Settings/Appliance/Block/Type';
+
+import SettingsOpera from 'App/Settings/Opera';
+import SettingsOperaModel from 'App/Settings/Opera/model';
+import SettingsOperaList from 'App/Settings/Opera/Block/List';
+import SettingsOperaEdit from 'App/Settings/Opera/Block/Edit';
+import SettingsOperaType from 'App/Settings/Opera/Block/Type';
 
 //
 import { locals } from 'Utils';
@@ -85,18 +92,63 @@ function childRoutes(app) {
 		},
 		{
 			path: 'settings/opera',
-			name: 'SettingsOpera',
+			component: SettingsOpera,
 			getComponent(nextState, cb) {
-				require.ensure([], (require) => { cb(null, SettingsOpera); }, 'settingsopera');
+				registerModel(app, SettingsOperaModel);
 			},
+			childRoutes: [
+				{
+					path: 'list',
+					name: 'operaList',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsOperaList); }, 'operaList');
+					},
+				},
+				{
+					path: 'edit',
+					name: 'operaEdit',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsOperaEdit); }, 'operaedit');
+					},
+				},
+				{
+					path: 'type',
+					name: 'operaType',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsOperaType); }, 'operatype');
+					},
+				},
+			]
 		},
 		{
 			path: 'settings/appliance',
-			name: 'SettingsAppliance',
+			component: SettingsAppliance,
 			getComponent(nextState, cb) {
 				registerModel(app, SettingsApplianceModel);
-				require.ensure([], (require) => { cb(null, SettingsAppliance); }, 'settingsappliance');
 			},
+			childRoutes: [
+				{
+					path: 'list',
+					name: 'applianceList',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsApplianceList); }, 'applianceList');
+					},
+				},
+				{
+					path: 'edit',
+					name: 'applianceEdit',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsApplianceEdit); }, 'applianceedit');
+					},
+				},
+				{
+					path: 'type',
+					name: 'applianceType',
+					getComponent(nextState, cb) {
+						require.ensure([], (require) => { cb(null, SettingsApplianceType); }, 'appliancetype');
+					},
+				},
+			]
 		},
 		{
 			path: '*',
@@ -212,7 +264,7 @@ const Routers = function ({ history, app }) {
 
 	// 判断是否初始化过
 	if (userInfo && userInfo.mac) {
-		if (userInfo.type === 5) {
+		if (userInfo.type === 1) {
 			routerType = '1';
 			routes = [
 				{
