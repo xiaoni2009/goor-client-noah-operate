@@ -15,8 +15,8 @@ class Header extends React.Component {
         this.back = this.back.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        const { location } = nextProps;
+    componentWillMount() {
+        const { location } = this.props;
         // 根据路由显示隐藏设置按钮
         this.setState({ settingShow: location.hash === '#/' ? true : false })
     }

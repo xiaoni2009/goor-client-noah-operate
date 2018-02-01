@@ -1,15 +1,16 @@
-.react-confirm-alert-blur {filter: url(#gaussian-blur);filter: blur(2px);-webkit-filter: blur(2px);}
+@import '../../app.less';
+.react-confirm-alert-blur {filter: url(#gaussian-blur);filter: blur(@cw * 2px);-webkit-filter: blur(@cw * 2px);}
 .react-confirm-alert-overlay {position: fixed;top: 0;left: 0;right: 0;bottom: 0;z-index: 99;background: rgba(0, 0, 0, .6);}
-.react-confirm-alert {background: #fff; border-radius: 6px; width: 730px; position: absolute; top:50%; left:50%; margin-left:-375px; margin-top:-218px;}
+.react-confirm-alert {background: #fff; border-radius: @cw * 6px; width: @cw * 730px; position: absolute; top:50%; left:50%; margin-left:@cw * -375px; margin-top:@cw * -218px;}
 .react-confirm-alert-svg{position: absolute; top: 0; left: 0;}
-.confirmCo {padding: 35px 60px;}
+.confirmCo {padding: @cw * 35px @cw * 60px;}
 .react-confirm-alert-button-group {
-    border-top: 1px solid #9B9B9B; line-height: 32px; display: flex; width: 100%; padding: 15px 0;
-    button {height: 70px; line-height: 70px; flex: 1; text-align: center; cursor: pointer; background: transparent; font-size: 32px; color: #4A4A4A;}
+    border-top: 1px solid #9B9B9B; line-height: @cw * 32px; display: flex; width: 100%; padding: @cw * 15px 0;
+    button {height: @cw * 70px; line-height: @cw * 70px; flex: 1; text-align: center; cursor: pointer; background: transparent; font-size: @cw * 32px; color: #4A4A4A;}
     .modals_cancel { border-right: 1px solid #9B9B9B;}
     .modals_OK {}
 }
 .cftit {
-    h1 {text-align: center; font-size: 32px; color: #4A4A4A; line-height: 52px;}
-    h3 {font-size: 30px; color: #0E84FF; letter-spacing: 3.42px; margin-top: 20px; line-height: 50px;}
+    h1 {text-align: center; font-size: @cw * 32px; color: #4A4A4A; line-height: @cw * 52px;}
+    h3 {font-size: @cw * 30px; color: #0E84FF; letter-spacing: @cw * 3.42px; margin-top: @cw * 20px; line-height: @cw * 50px;}
 }

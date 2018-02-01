@@ -1,46 +1,51 @@
+@import '../../app.less';
+
 .buttons {
     display: inline-block;
-    i.back {width: 248px; height: 104px; background: url(./images/button_back_normal.png) top left no-repeat;}
-    i.back:active,i.back:hover {background: url(./images/button_back_pressed.png) top left no-repeat}
 
-    i.confirm {width: 249px; height: 104px; background: url(./images/button_confirm_normal.png) top left no-repeat;}
-    i.confirm:active,i.confirm:hover {background: url(./images/button_confirm_pressed.png) top left no-repeat}
+    i {background-size:100% 100%; background-repeat:no-repeat;}
+    
+    i.back {width:  @cw * 248px; height: @cw * 104px; background-image: url(./images/button_back_normal.png);}
+    i.back:active,i.back:hover {background-image: url(./images/button_back_pressed.png)}
 
-    i.noconfirm {width: 249px; height: 104px; background: url(./images/button_confirm_disable.png) 3px 2px no-repeat;}
+    i.confirm {width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_confirm_normal.png);}
+    i.confirm:active,i.confirm:hover {background-image: url(./images/button_confirm_pressed.png)}
 
-    i.empty {width: 248px; height: 104px; background: url(./images/button_empty_normal.png) top left no-repeat;}
-    i.empty:active,i.empty:hover {background: url(./images/button_empty_pressed.png) top left no-repeat}
+    i.noconfirm {width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_confirm_disable.png);}
 
-    i.accept:active {width: 249px; height: 104px; background: url(./images/button_accept_normal.png) top left no-repeat}
-    i.accept {width: 249px; height: 104px; background: url(./images/button_accept_pressed.png) top left no-repeat}
+    i.empty {width:  @cw * 248px; height: @cw * 104px; background-image: url(./images/button_empty_normal.png);}
+    i.empty:active,i.empty:hover {background-image: url(./images/button_empty_pressed.png)}
 
-    i.change {width: 249px; height: 105px; background: url(./images/button_change_normal.png) top left no-repeat}
-    i.change:active {background: url(./images/button_change_pressed.png) top left no-repeat}
+    i.accept:active {width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_accept_normal.png)}
+    i.accept {width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_accept_pressed.png)}
 
-    i.delete {width: 249px; height: 105px; background: url(./images/button_delete_normal.png) top left no-repeat}
-    i.delete:active {background: url(./images/button_delete_pressed.png) top left no-repeat}
+    i.change {width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_change_normal.png)}
+    i.change:active {background-image: url(./images/button_change_pressed.png)}
 
-    i.submit:active {width: 248px; height: 104px; background: url(./images/button_submit_pressed.png) top left no-repeat}
-    i.submit { width: 248px; height: 104px; background: url(./images/button_submit_normal.png) top left no-repeat}
+    i.delete {width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_delete_normal.png)}
+    i.delete:active {background-image: url(./images/button_delete_pressed.png)}
 
-    i.backLeft:active {width: 64px; height: 64px; background: url(./images/icon_back_pressed.png) top left no-repeat}
-    i.backLeft { width: 64px; height: 64px; background: url(./images/icon_back_normal.png) top left no-repeat}
+    i.submit:active {width:  @cw * 248px; height: @cw * 104px; background-image: url(./images/button_submit_pressed.png)}
+    i.submit { width:  @cw * 248px; height: @cw * 104px; background-image: url(./images/button_submit_normal.png)}
 
-    i.recover:active {width: 249px; height: 105px; background: url(./images/button_recover_pressed.png) top left no-repeat}
-    i.recover { width: 249px; height: 105px; background: url(./images/button_recover_normal.png) top left no-repeat}
+    i.backLeft:active {width:  @cw * 64px; height: @cw * 64px; background-image: url(./images/icon_back_pressed.png)}
+    i.backLeft { width:  @cw * 64px; height: @cw * 64px; background-image: url(./images/icon_back_normal.png)}
 
-    i.save:active {width: 249px; height: 105px; background: url(./images/button_save_pressed.png) top left no-repeat}
-    i.save { width: 249px; height: 105px; background: url(./images/button_save_normal.png) top left no-repeat}
+    i.recover:active {width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_recover_pressed.png)}
+    i.recover { width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_recover_normal.png)}
 
-    i.add:active {width: 189px; height: 81px; background: url(./images/button_add_pressed.png) top left no-repeat}
-    i.add { width: 189px; height: 81px; background: url(./images/button_add_normal.png) top left no-repeat}
+    i.save:active {width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_save_pressed.png)}
+    i.save { width:  @cw * 249px; height: @cw * 105px; background-image: url(./images/button_save_normal.png)}
 
-    i.remove:active {width: 249px; height: 104px; background: url(./images/button_remove_pressed.png) top left no-repeat}
-    i.remove { width: 249px; height: 104px; background: url(./images/button_remove_normal.png) top left no-repeat}
+    i.add:active {width:  @cw * 189px; height: @cw * 81px; background-image: url(./images/button_add_pressed.png)}
+    i.add { width:  @cw * 189px; height: @cw * 81px; background-image: url(./images/button_add_normal.png)}
 
-    i.smalldelete:active {width: 41px; height: 43px; background: url(./images/icon_delete_pressed.png) top left no-repeat}
-    i.smalldelete { width: 41px; height: 43px; background: url(./images/icon_delete_normal.png) top left no-repeat}
+    i.remove:active {width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_remove_pressed.png)}
+    i.remove { width:  @cw * 249px; height: @cw * 104px; background-image: url(./images/button_remove_normal.png)}
 
-    i.smalledit:active {width: 40px; height: 43px; background: url(./images/icon_edit_pressed.png) top left no-repeat}
-    i.smalledit { width: 40px; height: 43px; background: url(./images/icon_edit_normal.png) top left no-repeat}
+    i.smalldelete:active {width:  @cw * 41px; height: @cw * 43px; background-image: url(./images/icon_delete_pressed.png)}
+    i.smalldelete { width:  @cw * 41px; height: @cw * 43px; background-image: url(./images/icon_delete_normal.png)}
+
+    i.smalledit:active {width:  @cw * 40px; height: @cw * 43px; background-image: url(./images/icon_edit_pressed.png)}
+    i.smalledit { width:  @cw * 40px; height: @cw * 43px; background-image: url(./images/icon_edit_normal.png)}
 }

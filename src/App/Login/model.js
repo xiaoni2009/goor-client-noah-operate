@@ -25,7 +25,9 @@ export default {
 				}
 				locals.set('userInfo', info);
 				// yield put(routerRedux.go('/'));
-				window.location.href= '/'
+				// window.location.href= '#/'
+				location.reload();
+
 			}else {
 				yield put(routerRedux.push('initial'));
 			}

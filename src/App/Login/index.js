@@ -5,6 +5,28 @@ import './style.less';
 import { config } from 'Utils'
 import { Button, confirmAlert } from 'Components';
 
+let key = [];
+    key[48] = 0;
+    key[49] = 1;
+    key[50] = 2;
+    key[51] = 3;
+    key[52] = 4;
+    key[53] = 5;
+    key[54] = 6;
+    key[55] = 7;
+    key[56] = 8;
+    key[57] = 9;
+    key[96] = 0;
+    key[97] = 1;
+    key[98] = 2;
+    key[99] = 3;
+    key[100] = 4;
+    key[101] = 5;
+    key[102] = 6;
+    key[103] = 7;
+    key[104] = 8;
+    key[105] = 9;
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -24,11 +46,11 @@ class Login extends React.Component {
         // 监听键盘事件
         domLogin.addEventListener('keydown', (e) => {
             let inputVal = self.state.inputVal;
-
+            console.log(e.keyCode)
             // 录入
             if ((e.keyCode > 47 && e.keyCode < 57) || (e.keyCode > 95 && e.keyCode < 106)) {
                 if (inputVal.length < 4) {
-                    inputVal.push(e.key)
+                    inputVal.push(key[e.keyCode])
                     self.setState({ inputVal })
                 }
             }

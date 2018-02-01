@@ -1,7 +1,8 @@
+@import '../../app.less';
 .searchKeyword {
-    margin: 35px 48px;
-    i {width: 64px; height: 64px; background: url(./icon_back_normal.png) top left no-repeat; vertical-align: middle;}
-    i:active {background: url(./icon_back_pressed.png) top left no-repeat;}
-    input {background: #ECF7FF; border: 1px solid #3996F6; border-radius: 6px; width: 1600px; height: 72px; margin-left: 50px; padding: 0 30px;  font-size: 38px; color: rgba(14,132,255,1); letter-spacing: 4.11px;}
+    margin: @cw * 35px @cw * 48px;
+    i {width: @cw * 64px; height: @cw * 64px; background: url(./icon_back_normal.png) top left no-repeat; background-size: 100% 100%; vertical-align: middle;}
+    i:active {background: url(./icon_back_pressed.png) top left no-repeat; background-size: 100% 100%;}
+    input {background: #ECF7FF; border: 1px solid #3996F6; border-radius: @cw * 6px; width: @cw * 1600px; height: @cw * 72px; margin-left: @cw * 50px; padding: 0 @cw * 30px;  font-size: @cw * 38px; color: rgba(14,132,255,1); letter-spacing: @cw * 4.11px;}
     input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: rgba(14,132,255,.36);}
 }

@@ -203,7 +203,7 @@ class Order extends React.Component {
                                 })
                             }
                             <li className="operaAdd" onClick={this.addOpera}>
-                                <img src="./images/icon_add.png" />
+                                <img className="operaAddimg" src="./images/icon_add.png" />
                                 <span>点击添加您所需要的器械</span>
                             </li>
                         </ul>

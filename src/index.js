@@ -11,13 +11,15 @@ import './index.html';
 
 const ERROR_MSG_DURATION = 3; // 3 秒
 
+// 1920 1200
+// var cw = document.body.clientWidth / 1920;
+
 // 1. Initialize
 const app = dva({
 	history: useRouterHistory(createHashHistory)({ queryKey: false }),
 	onError(e) {
 	}
 });
-
 
 // 2. Plugins
 app.use(createLoading());

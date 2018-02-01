@@ -10,7 +10,7 @@ class SettingsSystem extends React.Component {
             index: 1,
             stationId: null,
             stationName: null,
-            stationType: 4,
+            stationType: 2,
             notStationData: []
         }
 
@@ -50,7 +50,7 @@ class SettingsSystem extends React.Component {
 
     // 切换设置项
     changeSetting(index) {
-        this.setState({ index, stationType: 4, stationId: null })
+        this.setState({ index, stationType: 2, stationId: null })
     }
 
     // 切换站类型
@@ -125,11 +125,11 @@ class SettingsSystem extends React.Component {
                         &&
                         <div className="station">
                             <div className="stationType">
-                                <span onClick={() => { this.changeStation(4) }}><input type="radio" id="appliance" name="stype" defaultChecked="checked" /><label htmlFor="appliance">手术间</label></span>
-                                <span onClick={() => { this.changeStation(5) }}><input type="radio" id="opera" name="stype" defaultChecked="" /><label htmlFor="opera">无菌器械包室</label></span>
+                                <span onClick={() => { this.changeStation(2) }}><input type="radio" id="appliance" name="stype" defaultChecked="checked" /><label htmlFor="appliance">手术间</label></span>
+                                <span onClick={() => { this.changeStation(1) }}><input type="radio" id="opera" name="stype" defaultChecked="" /><label htmlFor="opera">无菌器械包室</label></span>
                             </div>
                             {
-                                stationType === 4
+                                stationType === 2
                                 &&
                                 <div>
                                     {
@@ -158,7 +158,7 @@ class SettingsSystem extends React.Component {
                                 </div>
                             }
                             {
-                                stationType === 5
+                                stationType === 1
                                 &&
                                 <div>
                                     {

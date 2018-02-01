@@ -18,7 +18,6 @@ export default {
 			}
 		},
 		*bind({ payload }, { call, put }) {
-			console.log(456)
 			const res = yield call(BIND, payload.info);
 			if(res.code === 0){
 				const d = res.data;
@@ -35,7 +34,7 @@ export default {
 				}
 				locals.set('userInfo', info);
 				// yield put(routerRedux.go('/'));
-				window.location.href= '/'
+				window.location.href= '#/'
 			}
 		}
 	},

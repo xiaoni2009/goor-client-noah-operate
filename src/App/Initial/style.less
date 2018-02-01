@@ -1,27 +1,28 @@
+@import '../../app.less';
 .initial{
-    padding-top: 198px; text-align: center;
-    h3 {font-size: 42px; color: #0E84FF; letter-spacing: 4.79px;}
+    padding-top: @cw * 198px; text-align: center;
+    h3 {font-size: @cw * 42px; color: #0E84FF; letter-spacing: @cw * 4.79px;}
     .types {
         .initType {
-            margin: 100px 0;
-            i {width: 481px; height: 241px; display: inline-block; margin: 0 100px}
-            i.initAppliance {background: url(./images/button_setting_04_normal.png) 0 0 no-repeat}
-            i.initAppliance:active, i.initAppliance.active {background: url(./images/button_setting_04_pressed.png) 0 0 no-repeat}
-            i.initOpera {background: url(./images/button_setting_05_normal.png) 0 0 no-repeat}
-            i.initOpera:active, i.initOpera.active {background: url(./images/button_setting_05_pressed.png) 0 0 no-repeat}
+            margin: @cw * 100px 0;
+            i {width: @cw * 481px; height: @cw * 241px; display: inline-block; margin: 0 @cw * 100px; background-size:100% 100%; background-repeat:no-repeat;}
+            i.initAppliance {background-image: url(./images/button_setting_04_normal.png)}
+            i.initAppliance:active, i.initAppliance.active {background-image: url(./images/button_setting_04_pressed.png)}
+            i.initOpera {background-image: url(./images/button_setting_05_normal.png)}
+            i.initOpera:active, i.initOpera.active {background-image: url(./images/button_setting_05_pressed.png)}
         }
     }
 
     .station {
         .stations {
-            width: 1600px; margin: 85px auto 0; text-align: left;
+            width: @cw * 1600px; margin: @cw * 85px auto 0; text-align: left;
             li {
-                border: 1px solid #6DBEFF; border-radius: 6px; width: 268px; height: 72px; text-align: center; line-height: 72px; margin: 0 22px; display: inline-block; margin-bottom: 50px;
-                span {font-size: 36px; color: #0E84FF; letter-spacing: 4.11px;}
+                border: 1px solid #6DBEFF; border-radius: @cw * 6px; width: @cw * 268px; height: @cw * 72px; text-align: center; line-height: @cw * 72px; margin: 0 @cw * 22px; display: inline-block; margin-bottom: @cw * 50px;
+                span {font-size: @cw * 36px; color: #0E84FF; letter-spacing: @cw * 4.11px;}
             }
             li.none {
-                background: #E4F3FF; border-radius: 6px; border: none;
-                span {font-size: 36px; color: #88ACC8; letter-spacing: 4.11px;}
+                background: #E4F3FF; border-radius: @cw * 6px; border: none;
+                span {font-size: @cw * 36px; color: #88ACC8; letter-spacing: @cw * 4.11px;}
             }
             li.active {
                 background: #0E84FF; border: 1px solid #6DBEFF;
@@ -31,6 +32,6 @@
     }
 
     .initBut {
-        .buttons:first-child {margin-right: 115px;}
+        .buttons:first-child {margin-right: @cw * 115px;}
     }
 }

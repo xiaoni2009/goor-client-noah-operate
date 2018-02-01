@@ -1,59 +1,60 @@
+@import '../../../app.less';
 .settingsappliance {
-    width: 1824px; margin: 0 auto;
+    width: @cw * 1824px; margin: 0 auto;
     .breadcrumb {
         overflow: hidden;
-        h3 {font-size: 40px; color: #0E8AFF; letter-spacing: 4.11px;  float: left}
+        h3 {font-size: @cw * 40px; color: #0E8AFF; letter-spacing: @cw * 4.11px;  float: left}
     }
     .sa_main {
         position: relative;
         .sa_typeButton {
-            float: right; font-size: 32px; color: #0F9EFF; letter-spacing: 0; line-height: 48px; text-decoration: underline; position: absolute; right: 0; top: -70px;
+            float: right; font-size: @cw * 32px; color: #0F9EFF; letter-spacing: 0; line-height: @cw * 48px; text-decoration: underline; position: absolute; right: 0; top: @cw * -70px;
             a {color: #0F9EFF;}
         }
     }
     .sa_header {
-        margin: 20px 0 20px 0;
+        margin: @cw * 20px 0 @cw * 20px 0;
         li {display: inline-block;}
         .sa_search {
-            margin-right: 70px;
-            input {background: #ECF7FF; border: 1px solid #3996F6; border-radius: 6px; width: 720px; height: 72px; font-size: 38px; color: #0E84FF; letter-spacing: 4.11px; padding: 0 40px; box-sizing: border-box}
+            margin-right: @cw * 70px;
+            input {background: #ECF7FF; border: 1px solid #3996F6; border-radius: @cw * 6px; width: @cw * 720px; height: @cw * 72px; font-size: @cw * 38px; color: #0E84FF; letter-spacing: @cw * 4.11px; padding: 0 @cw * 40px; box-sizing: border-box}
             input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #0E84FF; opacity: 0.36;}
         }
-        .sa_upload {font-size: 32px; color: #0F9EFF; letter-spacing: 0; line-height: 48px;}
+        .sa_upload {font-size: @cw * 32px; color: #0F9EFF; letter-spacing: 0; line-height: @cw * 48px;}
         .sa_add {float: right}
     }
 
     .typeli {
         li {
-            border: 1px solid #6DBEFF; border-radius: 6px; width: 268.3px; height: 72px; line-height: 72px; text-align: center; display: inline-block; margin-right: 45px; margin-bottom: 30px;
-            span {font-size: 34px; color: #0E84FF; letter-spacing: 3.88px; display: inline-block;}
+            border: 1px solid #6DBEFF; border-radius: @cw * 6px; width: @cw * 268.3px; height: @cw * 72px; line-height: @cw * 72px; text-align: center; display: inline-block; margin-right: @cw * 45px; margin-bottom: @cw * 30px;
+            span {font-size: @cw * 34px; color: #0E84FF; letter-spacing: @cw * 3.88px; display: inline-block;}
         }
         li:nth-child(4n+0){margin-right: 0;}
     }
 
     .applianceButton {
-        text-align: center; margin-top: 25px;
-        .buttons {margin: 0 60px;}
+        text-align: center; margin-top: @cw * 25px;
+        .buttons {margin: 0 @cw * 60px;}
     }
     
     .applianceType {
-        ul {overflow: hidden; margin-top: 40px;}
-        li {float: left; margin-bottom: 20px;}
+        ul {overflow: hidden; margin-top: @cw * 40px;}
+        li {float: left; margin-bottom: @cw * 20px;}
         li:nth-child(2n+0){
-            margin-left: 22px;
+            margin-left: @cw * 22px;
         }
         li.addtype {
             border: 1px solid #3996F6; text-align: center; background: #fff; display: inline-block;
-            img {width: 85px; height: 85px; margin-top: 20px;}
-            span {color: rgba(15,140,255,.44); font-size: 30px; display: block; margin-top: 10px;}
+            img {width: @cw * 85px; height: @cw * 85px; margin-top: @cw * 20px;}
+            span {color: rgba(15,140,255,.44); font-size: @cw * 30px; display: block; margin-top: @cw * 10px;}
         }
         .bl {
-            span {font-size: 40px; color: #0F8CFF; letter-spacing: 4.56px; display: block; margin: 35px 0 0 25px}
-            small {font-size: 30px; color: #0F8CFF; letter-spacing: 4.56px; display: block; margin: 10px 0 0 25px}
+            span {font-size: @cw * 40px; color: #0F8CFF; letter-spacing: @cw * 4.56px; display: block; margin: @cw * 35px 0 0 @cw * 25px}
+            small {font-size: @cw * 30px; color: #0F8CFF; letter-spacing: @cw * 4.56px; display: block; margin: @cw * 10px 0 0 @cw * 25px}
         }
         .br {
-            text-align: center; line-height: 180px; 
-            .line {opacity: 0.45; border: 1px solid #439BF7; width: 2px; height: 23px; margin: 0 25px}
+            text-align: center; line-height: @cw * 180px; 
+            .line {opacity: 0.45; border: 1px solid #439BF7; width: @cw * 2px; height: @cw * 23px; margin: 0 @cw * 25px}
             .buttons {
                 i {vertical-align: middle;}
             }

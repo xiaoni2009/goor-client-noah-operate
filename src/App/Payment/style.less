@@ -1,32 +1,33 @@
+@import '../../app.less';
 .payment {
-    text-align: center; height: 1030px; overflow-y: scroll;
-    .picon {margin: 125px auto 0; display: inline-block; }
-    .icon1 {width: 280px; height: 295px; background: url(./images/pic_1.png) top left no-repeat}
-    .icon2 {width: 280px; height: 294px; background: url(./images/pic_2.png) top left no-repeat}
-    .icon3 {width: 288px; height: 285px; background: url(./images/pic_3.png) top left no-repeat}
+    text-align: center; height: @cw * 1030px; overflow-y: scroll;
+    .picon {margin: @cw * 125px auto 0; display: inline-block; background-size: 100% 100%; background-size:100% 100%; background-repeat:no-repeat;}
+    .icon1 {width: @cw * 280px; height: @cw * 295px; background-image: url(./images/pic_1.png)}
+    .icon2 {width: @cw * 280px; height: @cw * 294px; background-image: url(./images/pic_2.png)}
+    .icon3 {width: @cw * 288px; height: @cw * 285px; background-image: url(./images/pic_3.png)}
     .paymentState {
         li {display: inline-block; position: relative;}
-        li.icon {height: 150px; width: 92px;}
-        span {font-size: 32px; color: #ABABAB; letter-spacing: 3.65px; position: absolute; bottom: 0; left: -17px; width: 120px;}
-        i {width: 92px; height: 92px; line-height: 92px; display: inline-block; vertical-align: middle;}
-        i.stateLeft {background: url(./images/icon_send.png) top left no-repeat}
-        i.stateCenter {background: url(./images/icon_wait.png) top left no-repeat}
-        i.stateRight {background: url(./images/icon_receive.png) top left no-repeat}
-        i.line i {width: 30px; height: 30px;background: #D8D8D8; border: 2px solid #F9FBFF; border-radius: 100%}
-        var {width: 290px; height: 3px; background: #d8d8d8; display: inline-block; vertical-align: middle;}
+        li.icon {height: @cw * 150px; width: @cw * 92px;}
+        span {font-size: @cw * 32px; color: #ABABAB; letter-spacing: @cw * 3.65px; position: absolute; bottom: 0; left: @cw * -17px; width: @cw * 120px;}
+        i {width: @cw * 92px; height: @cw * 92px; line-height: @cw * 92px; display: inline-block; vertical-align: middle; background-size:100% 100%; background-repeat:no-repeat;}
+        i.stateLeft {background-image: url(./images/icon_send.png)}
+        i.stateCenter {background-image: url(./images/icon_wait.png)}
+        i.stateRight {background-image: url(./images/icon_receive.png)}
+        i.line i {width: @cw * 30px; height: @cw * 30px;background: #D8D8D8; border: 2px solid #F9FBFF; border-radius: 100%}
+        var {width: @cw * 290px; height: @cw * 3px; background: #d8d8d8; display: inline-block; vertical-align: middle;}
         p {
-            font-size: 42px; color: #2094FF; letter-spacing: 4.79px;margin: 50px 0;
-            small {display: block; color: #ABABAB;font-size: 32px;}
+            font-size: @cw * 42px; color: #2094FF; letter-spacing: @cw * 4.79px;margin: @cw * 50px 0;
+            small {display: block; color: #ABABAB;font-size: @cw * 32px;}
         }
     }
     .paymentList {
-        text-align: left; width: 1300px; margin: 0 auto;
+        text-align: left; width: @cw * 1300px; margin: 0 auto;
         .pp {
-            overflow: hidden; margin-bottom: 30px;
-            var {font-style: inherit; line-height: 44px}
+            overflow: hidden; margin-bottom: @cw * 30px;
+            var {font-style: inherit; line-height: @cw * 44px}
         }
-        span {background: #E6F4FF; width: 215px; height: 60px; display: inline-block;font-size: 32px; color: #0E8AFF; letter-spacing: 3.65px;line-height: 60px; text-align: center; float: left;border-radius: 30px;}
-        p {font-size: 30px; color: #7B7B7B; letter-spacing: 4.11px; float: left; width: 980px; margin: 10px 0 0 25px}
+        span {background: #E6F4FF; width: @cw * 215px; height: @cw * 60px; display: inline-block;font-size: @cw * 32px; color: #0E8AFF; letter-spacing: @cw * 3.65px;line-height: @cw * 60px; text-align: center; float: left;border-radius: @cw * 30px;}
+        p {font-size: @cw * 30px; color: #7B7B7B; letter-spacing: @cw * 4.11px; float: left; width: @cw * 980px; margin: @cw * 10px 0 0 @cw * 25px}
     }
     .goback {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
 }

@@ -1,35 +1,36 @@
+@import '../../../app.less';
 .settingssystem {
-    h3 {font-size: 40px; color: #0E8AFF; letter-spacing: 4.11px; margin: 10px 50px}
+    h3 {font-size: @cw * 40px; color: #0E8AFF; letter-spacing: @cw * 4.11px; margin: @cw * 10px 50px}
     .nav {
-        font-size: 40px; color: #8A8A8A; letter-spacing: 4.56px; width: 1560px; margin: 50px auto 0;
+        font-size: @cw * 40px; color: #8A8A8A; letter-spacing: @cw * 4.56px; width: @cw * 1560px; margin: @cw * 50px auto 0;
         li {
-            display: inline-block; text-align: center; position: relative; vertical-align: top; margin: 0 35px;
+            display: inline-block; text-align: center; position: relative; vertical-align: top; margin: 0 @cw * 35px;
             i {display: none}
         }
         li.active { 
             color: #0E84FF;
-            i {width: 210px; height: 7px; background: #0E84FF; display: inline-block; vertical-align: bottom;}
+            i {width: @cw * 210px; height: @cw * 7px; background: #0E84FF; display: inline-block; vertical-align: bottom;}
         }
-        small {font-size: 32px; letter-spacing: 3.65px; display: block;}
+        small {font-size: @cw * 32px; letter-spacing: @cw * 3.65px; display: block;}
     }
     .station {
-        width: 1560px; margin: 0 auto; background: #EAF4FF; padding-top: 50px; 
+        width: @cw * 1560px; margin: 0 auto; background: #EAF4FF; padding-top: @cw * 50px; 
         .stationType {
-            font-size: 40px; color: #0E84FF; letter-spacing: 4.56px; margin: 0 0 50px 0;display: inline-block;
-            span:first-child {margin:0 30px;}
+            font-size: @cw * 40px; color: #0E84FF; letter-spacing: @cw * 4.56px; margin: 0 0 @cw * 50px 0;display: inline-block;
+            span:first-child {margin:0 @cw * 30px;}
             input[type="radio"] + label::before {
                 content: "\a0"; /*不换行空格*/
                 display: inline-block;
                 vertical-align: middle;
-                font-size: 18px;
-                width: 24px;
-                height: 24px;
-                margin: 0 20px;
+                font-size: @cw * 18px;
+                width: @cw * 24px;
+                height: @cw * 24px;
+                margin: 0 @cw * 20px;
                 border-radius: 50%;
-                border: 2px solid #6DBEFF;
-                text-indent: .15em;
+                border: @cw * 2px solid #6DBEFF;
+                text-indent: @cw * .15em;
                 line-height: 1; 
-                padding: 12px;
+                padding: @cw * 12px;
             }
             input[type="radio"]:checked + label::before {
                 background: #0E84FF;
@@ -44,12 +45,12 @@
         .stations {
             text-align: left;
             li {
-                border: 1px solid #6DBEFF; border-radius: 6px; width: 268px; height: 72px; text-align: center; line-height: 72px; margin: 0 22px; display: inline-block; margin-bottom: 36px;
-                span {font-size: 36px; color: #0E84FF; letter-spacing: 4.11px;}
+                border: 1px solid #6DBEFF; border-radius: @cw * 6px; width: @cw * 268px; height: @cw * 72px; text-align: center; line-height: @cw * 72px; margin: 0 @cw * 22px; display: inline-block; margin-bottom: @cw * 36px;
+                span {font-size: @cw * 36px; color: #0E84FF; letter-spacing: @cw * 4.11px;}
             }
             li.none {
-                background: #E4F3FF; border-radius: 6px; border: none;
-                span {font-size: 36px; color: #88ACC8; letter-spacing: 4.11px;}
+                background: #E4F3FF; border-radius: @cw * 6px; border: none;
+                span {font-size: @cw * 36px; color: #88ACC8; letter-spacing: @cw * 4.11px;}
             }
             li.active {
                 background: #0E84FF; border: 1px solid #6DBEFF;
@@ -59,7 +60,7 @@
         .none {text-align: center; color: #0E84FF;}
     }
     .systemBut {
-        text-align: center; margin-top: 35px;
-        .buttons {margin: 0 53px}
+        text-align: center; margin-top: @cw * 35px;
+        .buttons {margin: 0 @cw * 53px}
     }
 }

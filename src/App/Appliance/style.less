@@ -1,11 +1,12 @@
-.appliance { background: #F9FBFF; position: absolute; top: 0; left: 0; width: 100%; min-height: 1200px;
+@import '../../app.less';
+.appliance { background: #F9FBFF; position: absolute; top: 0; left: 0; width: 100%; min-height: @cw * 1200px;
 
-    .searchList {height: 1000px; overflow-y: auto; width: 1600px; margin: 60px auto 0;}
+    .searchList {height: @cw * 1000px; overflow-y: auto; width: @cw * 1600px; margin: @cw * 60px auto 0;}
     ul {
-        li {width: 720px; height: 160px; display: flex; justify-content : center; align-items: center; background: #fff; border: 1px solid #6DBEFF; border-radius: 6px; font-size: 36px; color: #0E84FF; letter-spacing: 4.11px; vertical-align: middle; padding: 0 35px; box-sizing: border-box; margin-bottom: 25px}
+        li {width: @cw * 720px; height: @cw * 160px; display: flex; justify-content : center; align-items: center; background: #fff; border: 1px solid #6DBEFF; border-radius: @cw * 6px; font-size: @cw * 36px; color: #0E84FF; letter-spacing: @cw * 4.11px; vertical-align: middle; padding: 0 @cw * 35px; box-sizing: border-box; margin-bottom: @cw * 25px}
         li:nth-child(odd){float: left}
         li:nth-child(even){float: right}
         li:active, li:hover {background: #3996F6; color: #fff}
-        li span.small {font-size: 28px}
+        li span.small {font-size: @cw * 28px}
     }
 }
