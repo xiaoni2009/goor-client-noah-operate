@@ -23,6 +23,13 @@ class SettingsSystem extends React.Component {
         this.saveBind = this.saveBind.bind(this);
     }
 
+    componentWillMount() {
+        const {userInfo} = this.props.app;
+        if(userInfo.station) {
+            this.setState({ stationId: userInfo.station.id, stationType: userInfo.type});
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         const { applianceData } = nextProps.ssystem;
         const { notStationData } = this.state;
@@ -92,7 +99,7 @@ class SettingsSystem extends React.Component {
     saveBind() {
         const { index, stationId, stationType, notStationData } = this.state;
         const { dispatch } = this.props;
-        if(index === 1){
+        if (index === 1) {
             // 手术室类型设置
             const info = {
                 password: 1234,
@@ -102,9 +109,9 @@ class SettingsSystem extends React.Component {
             dispatch({ type: 'SettingsSystem/bind', payload: { info, stationType } });
         }
 
-        if(index ===2) {
+        if (index === 2) {
             // 不开放手术室设置
-            dispatch({ type: 'SettingsSystem/notstation', payload: { operations:notStationData } });
+            dispatch({ type: 'SettingsSystem/notstation', payload: { operations: notStationData } });
         }
     }
 
@@ -125,8 +132,8 @@ class SettingsSystem extends React.Component {
                         &&
                         <div className="station">
                             <div className="stationType">
-                                <span onClick={() => { this.changeStation(2) }}><input type="radio" id="appliance" name="stype" defaultChecked="checked" /><label htmlFor="appliance">手术间</label></span>
-                                <span onClick={() => { this.changeStation(1) }}><input type="radio" id="opera" name="stype" defaultChecked="" /><label htmlFor="opera">无菌器械包室</label></span>
+                                <span onClick={() => { this.changeStation(2) }}><input type="radio" id="appliance" name="stype" defaultChecked={stationType === 2 && 'checked'} /><label htmlFor="appliance">手术间</label></span>
+                                <span onClick={() => { this.changeStation(1) }}><input type="radio" id="opera" name="stype" defaultChecked={stationType === 1 && 'checked'} /><label htmlFor="opera">无菌器械包室</label></span>
                             </div>
                             {
                                 stationType === 2
@@ -215,7 +222,8 @@ SettingsSystem.propTypes = {
 // state注入进来
 function mapStateToProps(state, loading) {
     return {
-        ssystem: state.SettingsSystem
+        ssystem: state.SettingsSystem,
+        app: state.app
     };
 }
 

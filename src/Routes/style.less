@@ -25,11 +25,11 @@ i {display: inline-block}
 button{outline:none;}
 /* 初始化结束 */
 
-body {background: url(./images/mainbg.png) right bottom no-repeat; background-size: 100% 100%; height: @cw * 1200px}
+body {background: url(./images/mainbg.png) right bottom no-repeat; background-size: 100% 100%; height: (@cw * 1200px - 75px)}
 
 .header {
-    position: relative;
-    img {width: 100%}
+    position: fixed; height: 77px; width: 100%; top: 0; left: 0;
+    img {width: 100%; vertical-align: middle}
     .settingIcon {
         position: absolute;
         right: @cw * 50px;
@@ -38,6 +38,8 @@ body {background: url(./images/mainbg.png) right bottom no-repeat; background-si
         i:active {background-image: url(./images/icon_setting_pressed.png);}
     }
 }
+
+.container {margin-top: 77px;overflow: hidden;}
 
 .home {
     text-align: center;
@@ -78,6 +80,6 @@ body {background: url(./images/mainbg.png) right bottom no-repeat; background-si
 
 //
 .stationName {
-    text-align: center;background-image: linear-gradient(-180deg, #FFFFFF 0%, #E2F2FF 100%); border-radius: @cw * 100px @cw * 100px @cw * 40px @cw * 40px; width: @cw * 470px; height: @cw * 93px; font-size: @cw * 36px; color: #0E8BFF; letter-spacing: @cw * 4.11px; margin: @cw * -35px auto;
-    span {margin-top: @cw * 35px; display: inline-block}
+    text-align: center;background-image: linear-gradient(-180deg, #FFFFFF 0%, #E2F2FF 100%); border-radius: @cw * 100px @cw * 100px @cw * 40px @cw * 40px; width: @cw * 470px; height: @cw * 93px; font-size: @cw * 36px; color: #0E8BFF; letter-spacing: @cw * 4.11px; margin: @cw * -20px auto 0;
+    span {margin-top: @cw * 30px; display: inline-block}
 }

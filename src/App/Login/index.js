@@ -46,7 +46,6 @@ class Login extends React.Component {
         // 监听键盘事件
         domLogin.addEventListener('keydown', (e) => {
             let inputVal = self.state.inputVal;
-            console.log(e.keyCode)
             // 录入
             if ((e.keyCode > 47 && e.keyCode < 57) || (e.keyCode > 95 && e.keyCode < 106)) {
                 if (inputVal.length < 4) {
