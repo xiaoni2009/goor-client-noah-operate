@@ -25,12 +25,13 @@ class App extends React.Component {
 
     render() {
         // 注入子界面
-        const { children, dispatch } = this.props;
+        const { children, dispatch, app } = this.props;
 
         // Header props
         const headerProps = {
             dispatch,
-            location
+            location,
+            app
         }
         //
         return (

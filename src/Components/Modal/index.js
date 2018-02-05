@@ -1,3 +1,3 @@
-import {confirmAlert} from './Confirm'
-
-export { confirmAlert }
+import { confirmAlert } from './Confirm'
+import {Toast} from './Toast'
+export { confirmAlert, Toast }

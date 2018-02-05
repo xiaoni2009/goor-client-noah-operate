@@ -1,7 +1,7 @@
 import { QUERY, BIND } from './service';
 import { locals } from 'Utils';
 import { routerRedux } from 'dva/router';
-
+import { Toast } from 'Components';
 export default {
 	namespace: 'Initial',
 	state: {
@@ -33,6 +33,9 @@ export default {
 					}
 				}
 				locals.set('userInfo', info);
+				Toast({
+					val: '绑定成功，请登录！',
+				})
 				// yield put(routerRedux.go('/'));
 				window.location.href= '#/'
 			}

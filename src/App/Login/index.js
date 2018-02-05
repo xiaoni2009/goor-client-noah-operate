@@ -3,7 +3,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import './style.less';
 import { config } from 'Utils'
-import { Button, confirmAlert } from 'Components';
+import { Button, confirmAlert, Toast } from 'Components';
 
 let key = [];
     key[48] = 0;
@@ -87,13 +87,17 @@ class Login extends React.Component {
             const { dispatch, login } = this.props;
             dispatch({ type: 'Login/query', payload: {} });
         }else {
-            confirmAlert({
-                title: '登录密码错误！',
-                confirmLabel: '确认',
-                onConfirm() {
+            // confirmAlert({
+            //     title: '登录密码错误！',
+            //     confirmLabel: '确认',
+            //     onConfirm() {
 
-                }
-            });
+            //     }
+            // });
+
+            Toast({
+                val: '登录密码错误！',
+            })
         }
         
     }

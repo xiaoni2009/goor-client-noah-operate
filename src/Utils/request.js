@@ -1,6 +1,6 @@
 import fetch from 'dva/fetch';
 import { apiUrl, loginState } from './config';
-
+import { Toast } from 'Components';
 //
 function checkStatus(response) {
 	if (response.status >= 200 && response.status < 300) {
@@ -34,6 +34,9 @@ export default async function request(url, options = {}) {
 		// 登录失效简化处理
 	} else {
 		// 这边需要做toast
+		Toast({
+			val: res.message || '',
+		})
 		return res;
 	}
 }

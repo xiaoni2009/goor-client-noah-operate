@@ -16,8 +16,12 @@ export default {
 	},
 	effects: {
 		*query({ payload }, { call, put }) {
-			const res = yield call(QUERY, payload.name);
-			yield put({ type: 'save', payload: { data: res.data } });
+			if(payload.name.length > 0){
+				const res = yield call(QUERY, payload.name);
+				yield put({ type: 'save', payload: { data: res.data } });
+			}else {
+				yield put({ type: 'save', payload: { data: [] } });
+			}
 		},
 	},
 	reducers: {

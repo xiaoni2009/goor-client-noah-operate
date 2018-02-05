@@ -105,12 +105,12 @@ const getPowers = () => {
 
 
 module.exports = {
-  config,
   request,
+  locals,
   classnames,
   options,
   queryURL,
   queryArray,
   agvWs,
-  locals
+  config,
 }

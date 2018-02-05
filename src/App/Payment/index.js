@@ -71,6 +71,16 @@ class Payment extends React.Component {
                             }
                         }
                         break;
+                    case 'REGISTER':
+                        if (newGetTime > getTime) {
+                            show(2);
+                        } else {
+                            setTimeout(function () {
+                                show(2);
+                                getTime = new Date().getTime() + 4000;
+                            }, (getTime - newGetTime));
+                        }
+                        break;
                     default:
                         break;
                 }

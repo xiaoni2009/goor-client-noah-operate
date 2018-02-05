@@ -1,7 +1,7 @@
 import { routerRedux } from 'dva/router';
 import { QUERY, BIND, NOT_STATION } from './service';
 import { locals } from 'Utils';
-
+import { Toast } from 'Components';
 export default {
     namespace: 'SettingsSystem',
     state: {
@@ -30,6 +30,9 @@ export default {
 		*bind({ payload }, { call, put }) {
 			const res = yield call(BIND, payload.info);
 			if(res.code === 0){
+				Toast({
+					val: '绑定成功，请重新登录！',
+				})
                 // 绑定成功
                 // if(payload.stationType === 5){
                     locals.remove('userInfo');
