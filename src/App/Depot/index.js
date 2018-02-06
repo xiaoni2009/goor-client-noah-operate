@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { agvWs } from 'Utils'
 import './style.less';
-import { Button } from 'Components';
+import { Button, confirmAlert } from 'Components';
 import { locals } from 'Utils'
 const { socketSend } = agvWs;
 
@@ -70,11 +70,30 @@ class Depot extends React.Component {
 
     // 受理完毕
     okDepot(id) {
-        const { dispatch } = this.props;
-        const { depotViewIndex, orderList } = this.state;
-        orderList.splice(depotViewIndex, 1);
-        this.setState({ orderList, depotViewShow: false });
-        dispatch({ type: 'Depot/orderhandle', payload: { id } });
+        const self = this;
+        const { dispatch } = self.props;
+        const { depotViewIndex, orderList, view } = self.state;
+        const vl = view.applianceList[0];
+
+        confirmAlert({
+            title: '该申请是否已经受理完毕？',
+            message: '',
+            childrenElement: () => {
+                return (
+                    <div style={{textAlign:'center', marginTop: '10px'}}>{view.station ? view.station.name : ''} <span style={{color: '#2094FF'}}>{vl.appliance.name}...</span></div>
+                )
+            },
+            confirmLabel: '确认',
+            cancelLabel: '取消',
+            onConfirm() {
+                orderList.splice(depotViewIndex, 1);
+                self.setState({ orderList, depotViewShow: false });
+                dispatch({ type: 'Depot/orderhandle', payload: { id } });
+            },
+            onCancel() {
+
+            }
+        })
     }
 
     render() {
