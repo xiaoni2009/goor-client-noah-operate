@@ -57,7 +57,7 @@ class SettingsSystem extends React.Component {
 
     // 切换设置项
     changeSetting(index) {
-        this.setState({ index, stationType: 2, stationId: null })
+        this.setState({ index, stationType: 2})
     }
 
     // 切换站类型
