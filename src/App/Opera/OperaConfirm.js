@@ -28,7 +28,7 @@ class OperaConfirm extends React.Component {
             num = 999;
         }
         // 小于
-        if(num < 1){
+        if(!num || num < 1){
             num = 1;
         }
 

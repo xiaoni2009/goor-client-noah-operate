@@ -90,7 +90,7 @@ class SettingsSystem extends React.Component {
     // 恢复按钮
     recover() {
         // 恢复
-        this.setState({ index: 1, stationId: null, stationName: null, notStationData: [] })
+        this.setState({ stationId: null, stationName: null, notStationData: [] })
         const { dispatch } = this.props;
         dispatch({ type: 'SettingsSystem/query', payload: {} });
     }
