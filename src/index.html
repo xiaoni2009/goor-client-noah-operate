@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
@@ -16,10 +17,32 @@
 		// var phoneScale = phoneWidth/1920;//除以的值按手机的物理分辨率
 		// var ua = navigator.userAgent;
 		// document.write('<meta name="viewport" content="width=device-width, initial-scale='+phoneScale+',minimum-scale='+phoneScale+',maximum-scale ='+phoneScale +',user-scalable=no,">');
+		
+		//获取机器mac地址
+		var mac_ = localStorage.getItem('macAddress') || null;
+		if(!mac_) {
+			function getmac(){
+				return 'xxxxx-xxxxx-xxxxx-xxxxx-xxxxx'.replace(/[xy]/g, function (c) {
+					var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+					return v.toString(16);
+				});
+			}
+			try {
+				var npm = require('./node_modules/getmac');
+				npm.getMac(function (err, macAddress) {
+					if (err) throw err;
+					localStorage.setItem('macAddress', macAddress);
+				});	
+			} catch (error) {
+				localStorage.setItem('macAddress', getmac());
+			}
+		}
 	</script>
 </head>
+
 <body>
 	<div id="root"></div>
 	<script src="./index.js"></script>
 </body>
+
 </html>
