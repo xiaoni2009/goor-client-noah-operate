@@ -3,11 +3,13 @@ import { connect } from 'dva';
 import './style.less';
 import { Button } from 'Components';
 
+let stationIdCache = false, notStationDataCache = false;
+
 class SettingsSystem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            index: 1,
+            index: 1, // 1设置当前手术室 2设置不开放
             stationId: null,
             stationName: null,
             stationType: 2,
@@ -21,27 +23,35 @@ class SettingsSystem extends React.Component {
         this.setNotStationActive = this.setNotStationActive.bind(this);
         this.recover = this.recover.bind(this);
         this.saveBind = this.saveBind.bind(this);
+        this.restoreNotStationData = this.restoreNotStationData.bind(this);
     }
 
     componentWillMount() {
-        const {userInfo} = this.props.app;
-        if(userInfo.station) {
-            this.setState({ stationId: userInfo.station.id, stationType: userInfo.type});
+        const { userInfo } = this.props.app;
+        if (userInfo.station) {
+            this.setState({ stationId: userInfo.station.id, stationType: userInfo.type });
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        
         const { applianceData } = nextProps.ssystem;
         const { notStationData } = this.state;
         if (notStationData.length === 0) {
-            let notS_ = [];
-            applianceData.map((t) => {
-                if (t.robotAccess === 1) {
-                    notS_.push(t.id)
-                }
-            })
-            this.setState({ notStationData: notS_ });
+            this.restoreNotStationData(applianceData);
         }
+    }
+
+    // 恢复不开放数据
+    restoreNotStationData(applianceData) {
+        const { notStationData } = this.state;
+        let notS_ = [];
+        applianceData.map((t) => {
+            if (t.robotAccess === 1) {
+                notS_.push(t.id)
+            }
+        })
+        this.setState({ notStationData: notS_ });
     }
 
     // 不开放站数据
@@ -52,12 +62,18 @@ class SettingsSystem extends React.Component {
                 d_.push(t.name)
             }
         })
-        return d_.join(',');
+        return d_.length > 0 ? d_.join(',') : '无';
     }
 
     // 切换设置项
     changeSetting(index) {
-        this.setState({ index, stationType: 2})
+        const { app, ssystem } = this.props;
+        const { userInfo } = app;
+        const { applianceData } = ssystem;
+        stationIdCache = false;
+        notStationDataCache = false;
+        this.restoreNotStationData(applianceData);
+        this.setState({ index, stationId: userInfo.station.id, stationType: userInfo.type });
     }
 
     // 切换站类型
@@ -66,8 +82,12 @@ class SettingsSystem extends React.Component {
     }
 
     // 选择站
-    setStation(stationId, stationName) {
-        this.setState({ stationId, stationName })
+    setStation(newStationId, stationName) {
+        const { stationId } = this.state;
+        if (stationId != newStationId) {
+            stationIdCache = true;
+            this.setState({ stationId: newStationId, stationName })
+        }
     }
 
     // 选择不可选站
@@ -78,6 +98,7 @@ class SettingsSystem extends React.Component {
         } else {
             notStationData.remove(stationId);
         }
+        notStationDataCache = true;
         this.setState({ notStationData });
     }
 
@@ -90,7 +111,9 @@ class SettingsSystem extends React.Component {
     // 恢复按钮
     recover() {
         // 恢复
-        this.setState({ stationId: null, stationName: null, notStationData: [] })
+        // this.setState({ stationId: null, stationName: null, notStationData: [] })
+        this.setState({ notStationData: [] });
+        notStationDataCache = false;
         const { dispatch } = this.props;
         dispatch({ type: 'SettingsSystem/query', payload: {} });
     }
@@ -110,13 +133,18 @@ class SettingsSystem extends React.Component {
         }
 
         if (index === 2) {
+            this.setState({ notStationData });
             // 不开放手术室设置
             dispatch({ type: 'SettingsSystem/notstation', payload: { operations: notStationData } });
         }
+
+        //
+        stationIdCache = false;
+        notStationDataCache = false;
     }
 
     render() {
-        const { index, stationId, stationType } = this.state;
+        const { index, stationId, stationType, notStationData } = this.state;
         const { applianceData, operaData } = this.props.ssystem;
 
         return (
@@ -201,12 +229,36 @@ class SettingsSystem extends React.Component {
                                     })
                                 }
                             </ul>
+                            <p className="stationsNote">注：关闭手术室可能对正在使用的设备造成影响，请谨慎操作！</p>
                         </div>
                     }
                 </div>
                 <div className="systemBut">
-                    <Button type="recover" onClick={this.recover} />
-                    <Button type="save" onClick={this.saveBind} />
+                    {
+                        index === 2
+                            ?
+                            <div>
+                                <Button type="recover" onClick={this.recover} />
+                                {
+                                    notStationDataCache
+                                        ?
+                                        <Button type="save" onClick={this.saveBind} />
+                                        :
+                                        <Button type="savedisable" />
+                                }
+                            </div>
+                            :
+                            <div>
+                                {
+                                    stationIdCache
+                                        ?
+                                        <Button type="save" onClick={this.saveBind} />
+                                        :
+                                        <Button type="savedisable" />
+                                }
+                            </div>
+                    }
+
                 </div>
             </div>
         )

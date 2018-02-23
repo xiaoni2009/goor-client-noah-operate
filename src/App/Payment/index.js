@@ -138,7 +138,7 @@ class Payment extends React.Component {
                             <li><var></var></li>
                             <li className="icon"><i className="stateRight"></i><span>待接收</span></li>
                         </ul>
-                        <p>手术包开始准备，请做好接受准备<small>触摸任意位置返回</small></p>
+                        <p>手术包开始准备，请做好接收准备<small>点击屏幕任意位置返回</small></p>
                     </div>
                 }
 

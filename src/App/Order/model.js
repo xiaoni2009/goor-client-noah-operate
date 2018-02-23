@@ -76,6 +76,7 @@ export default {
         *post({ payload }, { call, put }) {
             const res = yield call(POST, payload);
             if(res.code === 0){
+                yield put({ type: 'save', payload: { bag: {}, extra: [] } });
                 yield put(routerRedux.push('payment'));
             }
         }

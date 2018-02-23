@@ -5,8 +5,9 @@ import './style.less';
 class OperaConfirm extends React.Component {
     constructor(props) {
         super(props);
+        const { value } = this.props;
         this.state = {
-            value: 1
+            value
         }
 
         this.setNum = this.setNum.bind(this);
@@ -28,7 +29,7 @@ class OperaConfirm extends React.Component {
             num = 999;
         }
         // 小于
-        if(!num || num < 1){
+        if(num < 1){
             num = 1;
         }
 

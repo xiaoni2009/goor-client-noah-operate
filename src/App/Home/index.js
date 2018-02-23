@@ -27,8 +27,8 @@ function Home({ app, dispatch }) {
                 <div className="stationName"><span>{userInfo.station.name}</span></div>
             }
             <ul className="homeType">
-                <li onClick={() => { opera(0) }} ><i className="button_home_01_normal"></i></li>
-                <li onClick={() => { opera(1) }} ><i className="button_home_02_normal"></i></li>
+                <li><i onClick={() => { opera(0) }} className="button_home_01_normal"></i></li>
+                <li><i onClick={() => { opera(1) }} className="button_home_02_normal"></i></li>
             </ul>
         </div>
     )

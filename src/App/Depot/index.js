@@ -52,7 +52,8 @@ class Depot extends React.Component {
     orderConcat(data) {
         const { dispatch } = this.props;
         const { orderList } = this.state;
-        orderList.unshift(data);
+        // orderList.unshift(data);
+        orderList.push(data);
         this.setState({ orderList });
 
         dispatch({ type: 'Depot/orderreceive', payload: { id: data.id } });
@@ -79,9 +80,16 @@ class Depot extends React.Component {
             title: '该申请是否已经受理完毕？',
             message: '',
             childrenElement: () => {
-                return (
-                    <div style={{textAlign:'center', marginTop: '10px'}}>{view.station ? view.station.name : ''} <span style={{color: '#2094FF'}}>{vl.appliance.name}...</span></div>
-                )
+                if(view.operationType){
+                    const name = view.operationType ? view.operationType.name : '';
+                    return (
+                        <div style={{textAlign:'center', marginTop: '10px'}}>{view.station ? view.station.name : ''} <span style={{color: '#2094FF'}}>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span></div>
+                    )
+                }else {
+                    return (
+                        <div style={{textAlign:'center', marginTop: '10px'}}>{view.station ? view.station.name : ''} <span style={{color: '#2094FF'}}>{'临时器械申请(' + vl.appliance.name}...)</span></div>
+                    )    
+                }
             },
             confirmLabel: '确认',
             cancelLabel: '取消',
@@ -123,7 +131,7 @@ class Depot extends React.Component {
                                                 view.applianceList.map((t, i) => {
                                                     if (t.appliance) {
                                                         return (
-                                                            <var key={i}>{i + 1}.{t.appliance.name}  ({t.number}件)</var>
+                                                            <var key={i}>{i + 1}x {t.appliance.name}  ({t.number}件)</var>
                                                         )
                                                     } else {
                                                         return '';
@@ -141,16 +149,20 @@ class Depot extends React.Component {
                         </div>
                         :
                         <div>
-                            <div className="depotsName">申请受理列表</div>
+                            {
+                                orderList.length > 0
+                                &&
+                                <div className="depotsName">申请受理列表</div>
+                            }
                             <ul className="depot">
                                 {
                                     orderList.length > 0
                                         ?
                                         orderList.map((t, i) => {
-                                            const name = t.operationType ? t.operationType.name : '临时器械申请'
+                                            const name = t.operationType ? t.operationType.name : '临时器械申请';
                                             return (
                                                 <li onClick={() => { this.depotView(t, i) }} key={i}>
-                                                    <div className="dl"><span className="dl_num">手术室编号</span><span>{t.id}</span></div>
+                                                    <div className="dl"><span className="dl_num">手术室编号</span><span>{t.station ? t.station.name : ''}</span></div>
                                                     <div className="dr"><span>{name.length > 10 ? name.substring(0, 10) + '...' : name}</span><time>{t.createTime}</time></div>
                                                 </li>
                                             )

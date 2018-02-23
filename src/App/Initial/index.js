@@ -51,7 +51,7 @@ class Initial extends React.Component {
         if (index === 1) {
             browserHistory.goBack();
         } else {
-            this.setState({ index: 1 })
+            this.setState({ index: 1, stationId: null })
         }
     }
 
@@ -123,7 +123,16 @@ class Initial extends React.Component {
                     index === 2
                     &&
                     <div className="station">
-                        <h3>请选择此设备所在的手术间</h3>
+                        {
+                            type === 4
+                            &&
+                            <h3>请选择此设备所在的手术间</h3>
+                        }
+                        {
+                            type === 5
+                            &&
+                            <h3>请选择所在的无菌器械包室</h3>
+                        }
                         <ul className="stations">
                             {
                                 data.map((t, i) => {
@@ -143,7 +152,13 @@ class Initial extends React.Component {
                         </ul>
                         <div className="initBut">
                             <Button type="back" onClick={this.back} />
-                            <Button type="confirm" onClick={this.stationBind} />
+                            {
+                                stationId
+                                ?
+                                <Button type="confirm" onClick={this.stationBind} />
+                                :
+                                <Button type="noconfirm" />
+                            }
                         </div>
                     </div>
                 }

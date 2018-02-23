@@ -69,8 +69,9 @@ class Order extends React.Component {
         // OperaConfirm配置
         const ocProps = {
             item: t,
+            value: value_,
             operaNum: (num) => {
-                value_ = num;
+                value_ = num || 1;
             }
         }
 
