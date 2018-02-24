@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { confirmAlert, Button } from 'Components';
+import { confirmAlert, Button, Toast } from 'Components';
 import { locals } from 'Utils'
 import './style.less'
 import OperaConfirm from './OperaConfirm'
@@ -71,7 +71,8 @@ class Order extends React.Component {
             item: t,
             value: value_,
             operaNum: (num) => {
-                value_ = num || 1;
+                // value_ = num || 1;
+                value_ = num;
             }
         }
 
@@ -86,10 +87,18 @@ class Order extends React.Component {
             },
             confirmLabel: '确认',
             cancelLabel: '取消',
-            onConfirm() {
-                extra[i].number = value_;
-                dispatch({ type: 'Order/save', payload: { extra } });
-                self.setState({ editIndex: null });
+            onConfirm(call) {
+                if(value_){
+                    call(true);
+                    extra[i].number = value_;
+                    dispatch({ type: 'Order/save', payload: { extra } });
+                    self.setState({ editIndex: null });
+                }else {
+                    Toast({
+                        val: '请输入1-999的范围数值'
+                    })
+                }
+
             },
             onCancel() {
                 self.setState({ editIndex: null });

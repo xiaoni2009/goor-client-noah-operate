@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { Router } from 'dva/router';
+import { Router, routerRedux } from 'dva/router';
 import App from './app';
 
 // 加载模块
@@ -48,8 +48,9 @@ import SettingsOperaEdit from 'App/Settings/Opera/Block/Edit';
 import SettingsOperaType from 'App/Settings/Opera/Block/Type';
 
 //
-import { locals } from 'Utils';
+import { request, locals } from 'Utils';
 const userInfo = locals.get('userInfo');
+const mac = locals.get('macAddress');
 // 
 function redirectToLogin(nextState, replace) {
 	if (!userInfo || !userInfo.mac) {
@@ -283,6 +284,18 @@ const Routers = function ({ history, app }) {
 				{
 					path: '/',
 					component: App,
+					onEnter(){
+						const data = request(`services/operation/mac/bind?mac=${mac}`);
+						data.then((res)=>{
+							if(res.code != 0){
+								setTimeout(function () {
+									locals.remove('userInfo');
+									locals.remove('orderInfo');
+									window.location.href = '/'
+								}, 2000);
+							}
+						})
+					},
 					getIndexRoute(nextState, cb) {
 						require.ensure([], (require) => { cb(null, { component: Home }); }, 'home');
 					},

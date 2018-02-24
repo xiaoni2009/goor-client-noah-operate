@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
-import { SearchKeyword, confirmAlert, Error } from 'Components';
+import { SearchKeyword, confirmAlert, Error, Toast } from 'Components';
 import OperaConfirm from './OperaConfirm'
 
 import './style.less';
@@ -32,7 +32,8 @@ class Opera extends React.Component {
             item: t,
             value: value_,
             operaNum: (num) => {
-                value_ = num || 1;
+                // value_ = num || 1;
+                value_ = num;
             }
         }
 
@@ -47,21 +48,22 @@ class Opera extends React.Component {
             },
             confirmLabel: '确认',
             cancelLabel: '取消',
-            onConfirm() {
-                // extra.push({
-                //     appliance:extra_,
-                //     number: value
-                // });
-                // dispatch({ type: 'Opera/save', payload: { extra } });
+            onConfirm(call) {
+                if(value_){
+                    call(true);
+                    const extras = {
+                        appliance: extra_,
+                        number: value_
+                    }
 
-                const extras = {
-                    appliance: extra_,
-                    number: value_
+                    dispatch({ type: 'Order/query', payload: { extra: extras } });
+                    dispatch({ type: 'Opera/save', payload: { data: [] } });
+                    dispatch(routerRedux.push('order'));
+                }else {
+                    Toast({
+                        val: '请输入1-999的范围数值'
+                    })
                 }
-
-                dispatch({ type: 'Order/query', payload: { extra: extras } });
-                dispatch({ type: 'Opera/save', payload: { data: [] } });
-                dispatch(routerRedux.push('order'));
             },
             onCancel() {
 
@@ -95,7 +97,7 @@ class Opera extends React.Component {
                                 {
                                     data.map((t, i) => {
                                         return (
-                                            <li onClick={() => { this.setExtra(t) }} key={i}><span className={t.name.length > 12 && 'small'}>{t.name}</span><var>{t.packageType ? t.packageType.name : ''}</var></li>
+                                            <li onClick={() => { this.setExtra(t) }} key={i}><span className={t.name.length > 11 && 'small'}>{t.name}</span><var>{t.packageType ? t.packageType.name : ''}</var></li>
                                         )
                                     })
                                 }

@@ -28,8 +28,12 @@ export default class ReactConfirmAlert extends Component {
     };
 
     onClickConfirm = () => {
-        this.props.onConfirm();
-        this.close();
+        const self = this;
+        this.props.onConfirm((bool)=>{
+            if(bool){
+                self.close();
+            }
+        });
     };
 
     onClickCancel = () => {
