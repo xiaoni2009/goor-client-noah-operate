@@ -27,6 +27,28 @@ let key = [];
     key[104] = 8;
     key[105] = 9;
 
+let keyZh = [];
+    keyZh['Digit0'] = 0;
+    keyZh['Digit1'] = 1;
+    keyZh['Digit2'] = 2;
+    keyZh['Digit3'] = 3;
+    keyZh['Digit4'] = 4;
+    keyZh['Digit5'] = 5;
+    keyZh['Digit6'] = 6;
+    keyZh['Digit7'] = 7;
+    keyZh['Digit8'] = 8;
+    keyZh['Digit9'] = 9;
+    keyZh['Numpad0'] = 0;
+    keyZh['Numpad1'] = 1;
+    keyZh['Numpad2'] = 2;
+    keyZh['Numpad3'] = 3;
+    keyZh['Numpad4'] = 4;
+    keyZh['Numpad5'] = 5;
+    keyZh['Numpad6'] = 6;
+    keyZh['Numpad7'] = 7;
+    keyZh['Numpad8'] = 8;
+    keyZh['Numpad9'] = 9;
+
 class Login extends React.Component {
     constructor(props) {
         super(props);
@@ -52,10 +74,17 @@ class Login extends React.Component {
                     inputVal.push(key[e.keyCode])
                     self.setState({ inputVal })
                 }
+            }else if(e.keyCode == 229){
+                // 浏览器能用 exe不好用
+                // if (inputVal.length < 4) {
+                //     inputVal.push(keyZh[e.code])
+                //     self.setState({ inputVal })
+                // }
             }
 
             // 删除
-            if (e.keyCode === 8) {
+            if (e.keyCode === 8 || e.code == 'Backspace') {
+                console.log('jinlaile')
                 inputVal.pop()
                 self.setState({ inputVal })
             }
@@ -87,14 +116,6 @@ class Login extends React.Component {
             const { dispatch, login } = this.props;
             dispatch({ type: 'Login/query', payload: {} });
         }else {
-            // confirmAlert({
-            //     title: '登录密码错误！',
-            //     confirmLabel: '确认',
-            //     onConfirm() {
-
-            //     }
-            // });
-
             Toast({
                 val: '登录密码错误！',
             })

@@ -46,7 +46,8 @@ class Header extends React.Component {
                 },
                 confirmLabel: '确认',
                 cancelLabel: '取消',
-                onConfirm() {
+                onConfirm(call) {
+                    call(true);
                     if(password == '5678'){
                         dispatch(routerRedux.push(`/settings`));
                     }else {

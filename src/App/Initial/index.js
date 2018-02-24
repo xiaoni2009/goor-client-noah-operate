@@ -36,7 +36,8 @@ class Initial extends React.Component {
             message: '',
             confirmLabel: '确认',
             cancelLabel: '取消',
-            onConfirm() {
+            onConfirm(call) {
+                call(true);
                 const { dispatch } = self.props;
 
                 self.setState({ index: 2 });
@@ -71,7 +72,8 @@ class Initial extends React.Component {
                 message: '',
                 confirmLabel: '确认',
                 cancelLabel: '取消',
-                onConfirm() {
+                onConfirm(call) {
+                    call(true);
                     const info = {
                         password: 1234,
                         station: { id: stationId },
@@ -84,7 +86,8 @@ class Initial extends React.Component {
             confirmAlert({
                 title: '请选择站',
                 confirmLabel: '确认',
-                onConfirm() {
+                onConfirm(call) {
+                    call(true);
 
                 }
             });

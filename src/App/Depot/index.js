@@ -93,7 +93,8 @@ class Depot extends React.Component {
             },
             confirmLabel: '确认',
             cancelLabel: '取消',
-            onConfirm() {
+            onConfirm(call) {
+                call(true);
                 orderList.splice(depotViewIndex, 1);
                 self.setState({ orderList, depotViewShow: false });
                 dispatch({ type: 'Depot/orderhandle', payload: { id } });

@@ -44,7 +44,8 @@ class Order extends React.Component {
                 message: `${t.appliance.name}(${t.appliance.packageType.name})    数量：${t.number}`,
                 confirmLabel: '确认',
                 cancelLabel: '取消',
-                onConfirm() {
+                onConfirm(call) {
+                    call(true);
                     self.setState({ editIndex: null });
                     dispatch({ type: 'Order/remove', payload: { index } });
                 },
@@ -114,7 +115,8 @@ class Order extends React.Component {
             message: '',
             confirmLabel: '确认',
             cancelLabel: '取消',
-            onConfirm() {
+            onConfirm(call) {
+                call(true);
                 dispatch({ type: 'Order/remove', payload: { index: 10000 } });
                 bool && dispatch(routerRedux.push('/'));
             },

@@ -58,6 +58,20 @@ function redirectToLogin(nextState, replace) {
 	}
 }
 
+//验证站绑定
+function stationBind(nextState, replace) {
+	const data = request(`services/operation/mac/bind?mac=${mac}`);
+	data.then((res)=>{
+		if(res.code != 0){
+			locals.remove('userInfo');
+			locals.remove('orderInfo');
+			setTimeout(function () {
+				window.location.reload();
+			}, 2000);
+		}
+	})
+}
+
 // 动态model
 const cached = {};
 const registerModel = (app, model) => {
@@ -260,7 +274,7 @@ function childRoutes(app) {
 }
 
 //
-const Routers = function ({ history, app }) {
+const Routers = function ({ history, dispatch , app }) {
 	let routes = [];
 
 	// 判断是否初始化过
@@ -284,18 +298,7 @@ const Routers = function ({ history, app }) {
 				{
 					path: '/',
 					component: App,
-					onEnter(){
-						const data = request(`services/operation/mac/bind?mac=${mac}`);
-						data.then((res)=>{
-							if(res.code != 0){
-								setTimeout(function () {
-									locals.remove('userInfo');
-									locals.remove('orderInfo');
-									window.location.href = '/'
-								}, 2000);
-							}
-						})
-					},
+					onEnter: stationBind,
 					getIndexRoute(nextState, cb) {
 						require.ensure([], (require) => { cb(null, { component: Home }); }, 'home');
 					},
@@ -323,6 +326,7 @@ const Routers = function ({ history, app }) {
 
 Routers.propTypes = {
 	history: PropTypes.object,
+	dispatch: PropTypes.func,
 	app: PropTypes.object,
 };
 
