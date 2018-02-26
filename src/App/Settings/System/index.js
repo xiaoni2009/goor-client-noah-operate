@@ -78,7 +78,8 @@ class SettingsSystem extends React.Component {
 
     // 切换站类型
     changeStation(stationType) {
-        this.setState({ stationType });
+        stationIdCache = false;
+        this.setState({ stationType, stationId: null });
     }
 
     // 选择站
