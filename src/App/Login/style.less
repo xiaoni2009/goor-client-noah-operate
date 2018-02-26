@@ -3,7 +3,10 @@
     text-align: center; padding-top: @cw * 180px;
     h3 {font-size: @cw * 42px; color: #0E84FF; letter-spacing: 4.79px;}
     .loginInput {
-        margin: @cw * 100px 0 ; position: relative;
+        // margin: @cw * 100px 0 ; position: relative;
+        margin: @cw * 100px auto;
+        position: relative;
+        width: @cw *630px;
         span {
             width: @cw * 120px;
             height: @cw * 72px;
@@ -17,7 +20,8 @@
             font-size: @cw * 42px;
             color: #0E84FF
         }
-        input {opacity: 0; width: 1px; height: 1px}
+        // input {opacity: 0; width: 1px; height: 1px}
+        input {width: @cw *600px; height: @cw *70px; position: absolute; top: 0; left: @cw *20px; opacity: 0.5; color:#fff;}
     }
     .loginBut {
         .buttons:first-child {margin-right: @cw * 120px;}

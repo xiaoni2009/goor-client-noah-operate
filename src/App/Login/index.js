@@ -5,49 +5,49 @@ import './style.less';
 import { config } from 'Utils'
 import { Button, confirmAlert, Toast } from 'Components';
 
-let key = [];
-    key[48] = 0;
-    key[49] = 1;
-    key[50] = 2;
-    key[51] = 3;
-    key[52] = 4;
-    key[53] = 5;
-    key[54] = 6;
-    key[55] = 7;
-    key[56] = 8;
-    key[57] = 9;
-    key[96] = 0;
-    key[97] = 1;
-    key[98] = 2;
-    key[99] = 3;
-    key[100] = 4;
-    key[101] = 5;
-    key[102] = 6;
-    key[103] = 7;
-    key[104] = 8;
-    key[105] = 9;
+// let key = [];
+//     key[48] = 0;
+//     key[49] = 1;
+//     key[50] = 2;
+//     key[51] = 3;
+//     key[52] = 4;
+//     key[53] = 5;
+//     key[54] = 6;
+//     key[55] = 7;
+//     key[56] = 8;
+//     key[57] = 9;
+//     key[96] = 0;
+//     key[97] = 1;
+//     key[98] = 2;
+//     key[99] = 3;
+//     key[100] = 4;
+//     key[101] = 5;
+//     key[102] = 6;
+//     key[103] = 7;
+//     key[104] = 8;
+//     key[105] = 9;
 
-let keyZh = [];
-    keyZh['Digit0'] = 0;
-    keyZh['Digit1'] = 1;
-    keyZh['Digit2'] = 2;
-    keyZh['Digit3'] = 3;
-    keyZh['Digit4'] = 4;
-    keyZh['Digit5'] = 5;
-    keyZh['Digit6'] = 6;
-    keyZh['Digit7'] = 7;
-    keyZh['Digit8'] = 8;
-    keyZh['Digit9'] = 9;
-    keyZh['Numpad0'] = 0;
-    keyZh['Numpad1'] = 1;
-    keyZh['Numpad2'] = 2;
-    keyZh['Numpad3'] = 3;
-    keyZh['Numpad4'] = 4;
-    keyZh['Numpad5'] = 5;
-    keyZh['Numpad6'] = 6;
-    keyZh['Numpad7'] = 7;
-    keyZh['Numpad8'] = 8;
-    keyZh['Numpad9'] = 9;
+// let keyZh = [];
+//     keyZh['Digit0'] = 0;
+//     keyZh['Digit1'] = 1;
+//     keyZh['Digit2'] = 2;
+//     keyZh['Digit3'] = 3;
+//     keyZh['Digit4'] = 4;
+//     keyZh['Digit5'] = 5;
+//     keyZh['Digit6'] = 6;
+//     keyZh['Digit7'] = 7;
+//     keyZh['Digit8'] = 8;
+//     keyZh['Digit9'] = 9;
+//     keyZh['Numpad0'] = 0;
+//     keyZh['Numpad1'] = 1;
+//     keyZh['Numpad2'] = 2;
+//     keyZh['Numpad3'] = 3;
+//     keyZh['Numpad4'] = 4;
+//     keyZh['Numpad5'] = 5;
+//     keyZh['Numpad6'] = 6;
+//     keyZh['Numpad7'] = 7;
+//     keyZh['Numpad8'] = 8;
+//     keyZh['Numpad9'] = 9;
 
 class Login extends React.Component {
     constructor(props) {
@@ -60,6 +60,7 @@ class Login extends React.Component {
         this.loginclear = this.loginclear.bind(this);
         this.focusInput = this.focusInput.bind(this);
         this.loginsub = this.loginsub.bind(this);
+        this.setPassword = this.setPassword.bind(this);
     }
 
     componentDidMount() {
@@ -67,26 +68,11 @@ class Login extends React.Component {
         const domLogin = self.refs.login;
         // 监听键盘事件
         domLogin.addEventListener('keydown', (e) => {
-            let inputVal = self.state.inputVal;
-            // 录入
-            if ((e.keyCode > 47 && e.keyCode < 57) || (e.keyCode > 95 && e.keyCode < 106)) {
-                if (inputVal.length < 4) {
-                    inputVal.push(key[e.keyCode])
-                    self.setState({ inputVal })
-                }
-            }else if(e.keyCode == 229){
-                // 浏览器能用 exe不好用
-                // if (inputVal.length < 4) {
-                //     inputVal.push(keyZh[e.code])
-                //     self.setState({ inputVal })
-                // }
-            }
-
             // 删除
             if (e.keyCode === 8 || e.code == 'Backspace') {
-                console.log('jinlaile')
-                inputVal.pop()
-                self.setState({ inputVal })
+                let inputVal = self.state.inputVal;
+                inputVal.pop();
+                // self.setState({ inputVal });
             }
         })
     }
@@ -109,23 +95,34 @@ class Login extends React.Component {
     }
 
     //登录
-    loginsub(){
+    loginsub() {
         let inputVal = this.state.inputVal;
         inputVal = inputVal.join("");
-        if(inputVal === config.loginPassword) {
+        if (inputVal === config.loginPassword) {
             const { dispatch, login } = this.props;
             dispatch({ type: 'Login/query', payload: {} });
-        }else {
+        } else {
             Toast({
                 val: '登录密码错误！',
             })
         }
-        
+
+    }
+
+    // 获取input值
+    setPassword(e, abc) {
+        const is = e.target.value;
+        if(is%1 === 0){
+            let inputVal = this.state.inputVal;
+            if (inputVal.length < 4) {
+                inputVal = is.split('');
+                this.setState({ inputVal });
+            }
+        }
     }
 
     render() {
         const { inputVal } = this.state;
-
         return (
             <div className="login" onClick={this.focusInput}>
                 <div>
@@ -135,16 +132,17 @@ class Login extends React.Component {
                         <span>{inputVal[1]}</span>
                         <span>{inputVal[2]}</span>
                         <span>{inputVal[3]}</span>
-                        <input ref="login" value={inputVal.join("")} autoFocus />
+                        {/* <input ref="login" value={inputVal.join("")} autoFocus /> */}
+                        <input ref="login" value={inputVal.join("")} onChange={this.setPassword} autoFocus />
                     </div>
                     <div className="loginBut">
-                        <Button type="empty"  onClick={this.loginclear} />
+                        <Button type="empty" onClick={this.loginclear} />
                         {
                             inputVal.length == 4
-                            ?
-                                <Button type="confirm"  onClick={this.loginsub} />
-                            :
-                            <Button type="noconfirm" />
+                                ?
+                                <Button type="confirm" onClick={this.loginsub} />
+                                :
+                                <Button type="noconfirm" />
                         }
                     </div>
                 </div>
