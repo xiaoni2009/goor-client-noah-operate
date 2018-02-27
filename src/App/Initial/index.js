@@ -134,7 +134,7 @@ class Initial extends React.Component {
                         {
                             type === 5
                             &&
-                            <h3>请选择所在的无菌器械包室</h3>
+                            <h3>请选择此设备所在的无菌器械包室</h3>
                         }
                         <ul className="stations">
                             {
