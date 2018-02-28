@@ -7,7 +7,8 @@ class OperaConfirm extends React.Component {
         super(props);
         const { value } = this.props;
         this.state = {
-            value
+            value,
+            errorMax: false
         }
 
         this.setNum = this.setNum.bind(this);
@@ -25,12 +26,10 @@ class OperaConfirm extends React.Component {
         let num = parseInt(e.target.value);
 
         // 大于
-        if (num > 999) {
-            num = 999;
-        }
-        // 小于
-        if (num < 1) {
-            num = 1;
+        if (num > 999 || num < 1) {
+            this.setState({ errorMax: true });
+        }else {
+            this.setState({ errorMax: false });
         }
 
         // 值回调
@@ -42,12 +41,12 @@ class OperaConfirm extends React.Component {
     render() {
         const { item } = this.props;
         const { appliance } = item || {};
-        const { value } = this.state;
+        const { value, errorMax } = this.state;
         return (
             <div className="cf">
                 <div className="cf_type">当前选择器械：</div>
                 <div className="of_name">{appliance.name}<small>{appliance.packageType ? appliance.packageType.name : ''}</small></div>
-                <div className="of_val">请选择器械的数量：<input type="number" value={value} onChange={this.setNum} autoFocus="autofocus" /></div>
+                <div className="of_val">请选择器械的数量：<input type="number" value={value} placeholder="1~999" onChange={this.setNum} />{errorMax && <span className="errorMax">超出限制</span>}</div>
             </div>
         )
     }

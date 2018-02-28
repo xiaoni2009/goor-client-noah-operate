@@ -89,7 +89,7 @@ class Order extends React.Component {
             confirmLabel: '确认',
             cancelLabel: '取消',
             onConfirm(call) {
-                if(value_){
+                if(value_ &&  value_ < 999){
                     call(true);
                     extra[i].number = value_;
                     dispatch({ type: 'Order/save', payload: { extra } });

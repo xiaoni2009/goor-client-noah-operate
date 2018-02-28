@@ -12,7 +12,7 @@ class Opera extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            value: '',
         }
         this.setExtra = this.setExtra.bind(this);
     }
@@ -25,7 +25,7 @@ class Opera extends React.Component {
 
         // 缓存选中值
         extra_ = t;
-        let value_ = 1;
+        let value_ = '';
 
         // OperaConfirm配置
         const ocProps = {
@@ -49,7 +49,7 @@ class Opera extends React.Component {
             confirmLabel: '确认',
             cancelLabel: '取消',
             onConfirm(call) {
-                if(value_){
+                if(value_ &&  value_ < 999){
                     call(true);
                     const extras = {
                         appliance: extra_,
