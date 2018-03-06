@@ -22,7 +22,11 @@ class SearchKeyword extends React.Component {
         const { value } = this.state;
         return (
             <div className="searchKeyword">
-                <i onClick={back}></i>
+                {
+                    back
+                    &&
+                    <i onClick={back}></i>
+                }
                 <input type="text" value={value} onChange={this.toUpperCase} placeholder={placeholder} autoFocus="autofocus" />
             </div>
         )
@@ -33,7 +37,7 @@ class SearchKeyword extends React.Component {
 SearchKeyword.propTypes = {
     placeholder: PropTypes.string.isRequired,
     value: PropTypes.string,
-    back: PropTypes.func.isRequired,
+    // back: PropTypes.func.isRequired,
     search: PropTypes.func.isRequired
 }
 

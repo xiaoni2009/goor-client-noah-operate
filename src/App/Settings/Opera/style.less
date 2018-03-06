@@ -19,6 +19,10 @@
             margin-right: @cw * 70px;
             input {background: #ECF7FF; border: 1px solid #3996F6; border-radius: @cw * 6px; width: @cw * 720px; height: @cw * 72px; font-size: @cw * 38px; color: #0E84FF; letter-spacing: @cw * 4.11px; padding: 0 @cw * 40px; box-sizing: border-box}
             input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #0E84FF; opacity: 0.36;}
+            .searchKeyword {
+                margin: 0;
+                input {margin-left: 0;}
+            }
         }
         .sa_upload {font-size: @cw * 32px; color: #0F9EFF; letter-spacing: 0; line-height: @cw * 48px;}
         .sa_add {float: right}
@@ -42,7 +46,9 @@
             span {color: rgba(15,140,255,.44); font-size: @cw * 30px; display: block; margin-top: @cw * 10px;}
         }
         .bl {
-            span {font-size: @cw * 40px; color: #0F8CFF; letter-spacing: @cw * 4.56px; display: block; margin: @cw * 35px 0 0 @cw * 25px}
+            line-height: @cw * 180px; 
+            span {font-size: @cw * 40px; color: #0F8CFF; letter-spacing: @cw * 4.56px; display: block; margin: 0 0 0 @cw * 25px}
+            small {font-size: @cw * 30px; color: #0F8CFF; letter-spacing: @cw * 4.56px; display: block; margin: @cw * 10px 0 0 @cw * 25px}
         }
         .br {
             text-align: center; line-height: @cw * 180px; 

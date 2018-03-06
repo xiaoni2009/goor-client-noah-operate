@@ -1,0 +1,36 @@
+@import '../../app.less';
+.froms {
+    .selects {
+        position: relative;
+        .sinput {
+            border: 1px solid #3996F6; border-radius: @cw * 6px; width: @cw * 960px; height: @cw * 72px; line-height: @cw * 72px; box-sizing: border-box; padding: 0 @cw * 40px; font-size: @cw * 36px; color: #0E8AFF; letter-spacing: @cw * 3.7px; position: relative; 
+            input {border: none; background: transparent; padding: 0;}
+            span {}
+            i {
+                display: inline-block;  
+                border-left: 2px solid;
+                border-bottom: 2px solid;  
+                width: @cw * 25.5px;
+                height: @cw * 25.5px;  
+                transform: rotate(-45deg); 
+                border-color: #3996F6;
+                position: absolute;
+                top: @cw * 14px;
+                right: @cw * 26px;
+            }
+        }
+        .sdata {
+            background: #fff; box-shadow: 0 3px 7px 0 rgba(61,61,61,0.50); max-height: @cw * 288px; width: @cw * 960px; overflow: auto; position: absolute; top: @cw * 72px; z-index: 10;
+            li {
+                height: @cw * 72px; line-height: @cw * 72px; margin: 0 !important; padding: 0 @cw * 45px;
+                span {font-size: @cw * 36px; color: #6A6A6A; letter-spacing: @cw * 3.7px;}
+            }
+            li:hover, li:active {background: #ECF7FF;}
+        }
+        .searching {
+            position: absolute; top: @cw * 72px; left: 0; width: @cw * 960px; height: @cw * 72px;
+            background: #fff; box-shadow: 0 3px 7px 0 rgba(61,61,61,0.50);
+            span {font-size: @cw * 24px; color: #0E8AFF; letter-spacing: 2.46px; padding: 0 @cw * 30px}
+        }
+    }
+}

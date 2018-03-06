@@ -117,7 +117,7 @@ class Order extends React.Component {
             cancelLabel: '取消',
             onConfirm(call) {
                 call(true);
-                dispatch({ type: 'Order/remove', payload: { index: 10000 } });
+                dispatch({ type: 'Order/remove', payload: { index: 10000, type: bool } });
                 bool && dispatch(routerRedux.push('/'));
             },
             onCancel() {

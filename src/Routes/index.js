@@ -116,6 +116,7 @@ function childRoutes(app) {
 					path: 'list',
 					name: 'operaList',
 					getComponent(nextState, cb) {
+						registerModel(app, SettingsOperaModel);
 						require.ensure([], (require) => { cb(null, SettingsOperaList); }, 'operaList');
 					},
 				},
@@ -146,6 +147,7 @@ function childRoutes(app) {
 					path: 'list',
 					name: 'applianceList',
 					getComponent(nextState, cb) {
+						registerModel(app, SettingsApplianceModel);
 						require.ensure([], (require) => { cb(null, SettingsApplianceList); }, 'applianceList');
 					},
 				},

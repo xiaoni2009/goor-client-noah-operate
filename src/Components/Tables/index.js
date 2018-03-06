@@ -26,12 +26,12 @@ class Tables extends React.Component {
 
         if (page === '-1') {
             if (thisPage - 1 > 0) {
-                page = thisPage - 1;
+                page = parseInt(thisPage) - 1;
                 dispatch(routerRedux.push({ pathname, query: { page } }));
             }
         } else if (page === '+1') {
             if (thisPage < total_) {
-                page = thisPage + 1;
+                page = parseInt(thisPage) + 1;
                 dispatch(routerRedux.push({ pathname, query: { page } }));
             }
         } else {
@@ -74,6 +74,8 @@ class Tables extends React.Component {
                     page_.map((t, i) => {
                         if (t == pageNum) {
                             return <li key={i} className='pActive'>{t}</li>
+                        } else if(t == '...'){
+                            return <li key={i}>{t}</li>
                         } else {
                             return <li key={i} onClick={() => { this.getPage(t) }}>{t}</li>
                         }
@@ -87,8 +89,25 @@ class Tables extends React.Component {
 
     render() {
         const { thisPage } = this.state;
-        const { columns, data, getPage } = this.props;
+        const { columns, data, getPage, edit = null } = this.props;
         const { list = [], pageSize, total, pageNum } = data;
+
+        //
+        function editChange(t){
+            if(edit) {
+                edit(t);
+            }
+        };
+
+        // 截取字符串
+        function smallName(text){
+            if(text.length > 15) {
+                return text.substring(0, 15) + '...';
+            }else {
+                return text;
+            }
+        };
+
         return (
             <div className="dataTable">
                 <table cellPadding="0" cellSpacing="0">
@@ -108,7 +127,26 @@ class Tables extends React.Component {
                         <tbody>
                             {
                                 list.map((t, i) => {
-                                    return <tr key={i}><td>{i}</td><td>{t.name}</td><td>{t.searchName}</td><td>{t.packageType && t.packageType.name}</td></tr>
+                                    return (
+                                        <tr key={i} onClick={()=>{editChange(t)}}>
+                                            <td>{i}</td>
+                                            {
+                                                columns.map((ct, ci) => {
+                                                    const ckey = columns[ci].value;
+                                                    const carray = ckey.split(".");
+                                                    if(carray.length > 1) {
+                                                        let abc = [];
+                                                        carray.map((carrayValue, carrayKey)=>{
+                                                            abc = abc.length === 0 ? abc = t[carrayValue] : abc = abc[carrayValue];
+                                                        });
+                                                        return <td key={ci}>{smallName(abc)}</td>;
+                                                    }else {
+                                                        return <td key={ci}>{smallName(t[ckey])}</td>
+                                                    }
+                                                })
+                                            }
+                                        </tr>
+                                    )
                                 })
                             }
                         </tbody>

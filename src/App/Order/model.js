@@ -63,7 +63,11 @@ export default {
             // payload.index >= 10000 等于删除全部
             // 判断删除, 初始化数据
             if(payload.index >= 10000){
-                yield put({ type: 'save', payload: { extra: [], bag: {} } });   
+                if(payload.type){
+                    yield put({ type: 'save', payload: { extra: [], bag: {} } });
+                }else {
+                    yield put({ type: 'save', payload: { extra: [] } });
+                }
             }else {
                 try {
                     extra.splice(payload.index, 1);

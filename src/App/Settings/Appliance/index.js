@@ -19,7 +19,6 @@ class SettingsAppliance extends React.Component {
     render() {
         const { sappliance, dispatch, children, location } = this.props;
         const { query } = location;
-
         //
         bb = query.type ? breadcrumb_[query.type]: '';
 

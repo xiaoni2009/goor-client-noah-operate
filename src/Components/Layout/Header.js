@@ -67,11 +67,17 @@ class Header extends React.Component {
 			}
         }
     }
-
+    
     // 后退
     back() {
-        const { dispatch } = this.props;
-        dispatch(routerRedux.go(-1));
+        const { dispatch, location } = this.props;
+        if(location.hash == '#/settings/appliance/list' || location.hash == '#/settings/opera/list') {
+            dispatch(routerRedux.push('settings'));
+        }else if(location.hash == '#/settings'){
+            dispatch(routerRedux.push('/'));
+        }else {
+            dispatch(routerRedux.go(-1));
+        }
     }
 
     render() {

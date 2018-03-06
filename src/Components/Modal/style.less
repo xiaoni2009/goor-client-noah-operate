@@ -3,7 +3,7 @@
 .react-confirm-alert-overlay {position: fixed;top: 0;left: 0;right: 0;bottom: 0;z-index: 99;background: rgba(0, 0, 0, .6);}
 .react-confirm-alert {background: #fff; border-radius: @cw * 6px; width: @cw * 730px; position: absolute; top:50%; left:50%; margin-left:@cw * -375px; margin-top:@cw * -218px;}
 .react-confirm-alert-svg{position: absolute; top: 0; left: 0;}
-.confirmCo {padding: @cw * 35px @cw * 60px;}
+.confirmCo {padding: @cw * 35px @cw * 36px;}
 .react-confirm-alert-button-group {
     border-top: 1px solid #9B9B9B; line-height: @cw * 32px; display: flex; width: 100%; padding: @cw * 15px 0;
     button {height: @cw * 70px; line-height: @cw * 70px; flex: 1; text-align: center; cursor: pointer; background: transparent; font-size: @cw * 32px; color: #4A4A4A;}
@@ -11,21 +11,25 @@
     .modals_OK {}
 }
 .cftit {
-    h1 {text-align: center; font-size: @cw * 32px; color: #4A4A4A; line-height: @cw * 52px;}
+    h1 {
+        text-align: center; font-size: @cw * 32px; color: #4A4A4A; line-height: @cw * 52px;
+        span {color: #0F8CFF}
+    }
     h3 {font-size: @cw * 30px; color: #0E84FF; letter-spacing: @cw * 3.42px; margin-top: @cw * 20px; line-height: @cw * 50px;}
 }
 
 #toasts {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 0;
+    right: 0;
     color: #fff;
     font-size: 19px;
     background: rgba(0,0,0,.5);
     padding: 5px 20px;
     border-radius: 30px;
-    // width: 200px;
     text-align: center;
-    margin-left: -100px;
     z-index: 999;
+    max-width: @cw * 800px;
+    margin: 0 auto
 }

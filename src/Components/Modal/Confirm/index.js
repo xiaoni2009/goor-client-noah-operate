@@ -54,7 +54,7 @@ export default class ReactConfirmAlert extends Component {
                 <div className="react-confirm-alert">
                     <div className="confirmCo">
                         <div className="cftit">
-                            {title && <h1>{title}</h1>}
+                            {title && <h1 dangerouslySetInnerHTML={{__html:title}}></h1>}
                             {message && <h3>{message}</h3>}
                         </div>
                         {childrenElement()}
