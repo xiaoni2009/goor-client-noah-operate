@@ -26,7 +26,7 @@ class OperaConfirm extends React.Component {
         let num = parseInt(e.target.value);
 
         // 大于
-        if (num > 999 || num < 1) {
+        if (num > 1000 || num < 1) {
             this.setState({ errorMax: true });
         }else {
             this.setState({ errorMax: false });

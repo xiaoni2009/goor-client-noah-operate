@@ -54,7 +54,7 @@ class Opera extends React.Component {
             confirmLabel: '确认',
             cancelLabel: '取消',
             onConfirm(call) {
-                if(value_ &&  value_ < 999){
+                if(value_ &&  value_ < 1000){
                     call(true);
                     const extras = {
                         appliance: extra_,

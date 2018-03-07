@@ -12,7 +12,18 @@ class Edit extends React.Component {
     // 
     fetchUser(text){
 		const { dispatch } = this.props;
-		dispatch({ type: 'SettingsOpera/searchName', payload: { name: text.toUpperCase() } })
+        dispatch({ type: 'SettingsOpera/searchName', payload: { name: text.toUpperCase() } });
+        
+
+
+        // var last;
+        // last = event.timeStamp;
+
+        // setTimeout(function(){
+        //     if(last-event.timeStamp==0){
+                
+        //     }
+        // },500);
     }
 
     //

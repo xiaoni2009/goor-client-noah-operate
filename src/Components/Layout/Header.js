@@ -29,9 +29,14 @@ class Header extends React.Component {
     jumpSetting() {
         const { dispatch, app } = this.props;
         const { userInfo } = app;
-        let password = null;
+        let password = null, apiAddress = config.getApi;
+        // 获取进入设置的密码
         function setVal(e){
             password = e.target.value;
+        }
+        // 获取api地址
+        function setApi(e){
+            apiAddress = e.target.value;
         }
 
         if(userInfo.mac) {
@@ -47,8 +52,8 @@ class Header extends React.Component {
                 confirmLabel: '确认',
                 cancelLabel: '取消',
                 onConfirm(call) {
-                    call(true);
                     if(password == '5678'){
+                        call(true);
                         dispatch(routerRedux.push(`/settings`));
                     }else {
                         Toast({val: '密码错误！'})
@@ -59,12 +64,31 @@ class Header extends React.Component {
                 }
             })
         }else {
-			var apiDomain = prompt('请输入 API 的 IP 地址!',config.getApi);
-			if (!apiDomain) {
-				return false;
-			}else {
-                config.setApi(apiDomain);
-			}
+            confirmAlert({
+                title: '设置API地址',
+                message: '',
+                childrenElement: () => {
+                    return (
+                        <input className="settingInput" defaultValue={apiAddress} autoFocus="autofocus" onChange={setApi}  />
+                    )
+                },
+                confirmLabel: '确认',
+                cancelLabel: '取消',
+                onConfirm(call) {
+                    if(apiAddress){
+                        call(true);
+                        config.setApi(apiAddress);
+                    }else {
+                        Toast({val: 'API地址不能为空！'})
+                    }
+                }
+            })
+			// var apiDomain = prompt('请输入 API 的 IP 地址!',config.getApi);
+			// if (!apiDomain) {
+			// 	return false;
+			// }else {
+            //     config.setApi(apiDomain);
+			// }
         }
     }
     
