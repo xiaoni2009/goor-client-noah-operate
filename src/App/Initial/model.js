@@ -32,7 +32,7 @@ export default {
 						type: d.type
 					}
 				}
-				locals.set('userInfo', info);
+				locals.setSession('userInfo', info);
 				Toast({
 					val: '绑定成功，请登录！',
 				})

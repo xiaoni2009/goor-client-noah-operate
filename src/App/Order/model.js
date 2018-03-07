@@ -5,7 +5,8 @@ export default {
     namespace: 'Order',
     state: {
         bag: {},
-        extra: []
+        extra: [],
+        orderReturn: {}
     },
     subscriptions: {
         setup({ dispatch, history }) {
@@ -80,7 +81,7 @@ export default {
         *post({ payload }, { call, put }) {
             const res = yield call(POST, payload);
             if(res.code === 0){
-                yield put({ type: 'save', payload: { bag: {}, extra: [] } });
+                yield put({ type: 'save', payload: { bag: {}, extra: [], orderReturn: res.data } });
                 yield put(routerRedux.push('payment'));
             }
         }

@@ -1,7 +1,8 @@
-import React from 'react'
-import { locals, agvWs } from 'Utils'
+import React from 'react';
+import { connect } from 'dva';
+import { locals, agvWs } from 'Utils';
 import { Link } from 'dva/router';
-import './style.less'
+import './style.less';
 
 const { socketSend } = agvWs;
 let getTime = null;
@@ -10,15 +11,18 @@ let getTime = null;
 class Payment extends React.Component {
     constructor(props) {
         super(props);
+        const { orderReturn } = this.props.order || {};
+
         this.state = {
             show: 1,
             orderInfo: {},
-            back: false
+            back: false,
+            orderId: orderReturn.id || null
         }
     }
 
     componentWillMount() {
-        let orderInfo = locals.get('orderInfo');
+        let orderInfo = locals.getSession('orderInfo');
         orderInfo = orderInfo ? JSON.parse(orderInfo) : null;
         if (orderInfo) {
             getTime = new Date().getTime() + 4000;
@@ -29,8 +33,7 @@ class Payment extends React.Component {
     componentDidMount() {
         const self = this;
         // 需要的机器人配置
-        const userInfo = locals.get('userInfo');
-
+        const userInfo = locals.getSession('userInfo');
         // 切换
         function show(id, back){
             if(back) {
@@ -61,7 +64,7 @@ class Payment extends React.Component {
 
                         // 这里每一步需要做至少4S等待
                         // 第三步
-                        if (res.body.state == 3) {
+                        if (res.body.state == 3 && self.state.orderId === res.body.id) {
                             if (newGetTime > getTime) {
                                 show(3, true);
                             } else {
@@ -159,7 +162,7 @@ class Payment extends React.Component {
                             <p>
                                 {
                                     applianceList.map((t, i) => {
-                                        return <var key={i}>{i + 1}X {t.appliance.name}<br /></var>
+                                        return <var key={i}><var>{t.number}</var> (件) {t.appliance.name}<br /></var>
                                     })
                                 }
                             </p>
@@ -174,4 +177,11 @@ class Payment extends React.Component {
     }
 }
 
-export default Payment;
+// state注入进来
+function mapStateToProps(state, loading) {
+    return {
+        order: state.Order
+    };
+}
+
+export default connect(mapStateToProps)(Payment);

@@ -23,7 +23,7 @@ export default {
 					},
 					type: d.type
 				}
-				locals.set('userInfo', info);
+				locals.setSession('userInfo', info);
 				// yield put(routerRedux.go('/'));
 				// window.location.href= '#/'
 				window.location.reload();

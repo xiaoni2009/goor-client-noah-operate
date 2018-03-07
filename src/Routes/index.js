@@ -49,7 +49,7 @@ import SettingsOperaType from 'App/Settings/Opera/Block/Type';
 
 //
 import { request, locals } from 'Utils';
-const userInfo = locals.get('userInfo');
+const userInfo = locals.getSession('userInfo');
 const mac = locals.get('macAddress');
 // 
 function redirectToLogin(nextState, replace) {
@@ -63,8 +63,8 @@ function stationBind(nextState, replace) {
 	const data = request(`services/operation/mac/bind?mac=${mac}`);
 	data.then((res)=>{
 		if(res.code != 0){
-			locals.remove('userInfo');
-			locals.remove('orderInfo');
+			locals.removeSession('userInfo');
+			locals.removeSession('orderInfo');
 			setTimeout(function () {
 				window.location.reload();
 			}, 2000);

@@ -2,7 +2,7 @@ import { config } from 'Utils'
 import { routerRedux } from 'dva/router'
 import { locals, agvWs } from 'Utils'
 
-const userinfo = locals.get('userInfo') || {};
+const userinfo = locals.getSession('userInfo') || {};
 
 export default {
 	namespace: 'app',

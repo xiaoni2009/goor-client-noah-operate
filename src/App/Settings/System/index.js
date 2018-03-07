@@ -11,6 +11,7 @@ class SettingsSystem extends React.Component {
         this.state = {
             index: 1, // 1设置当前手术室 2设置不开放
             stationId: null,
+            stationName: '',
             stationName: null,
             stationType: 2,
             notStationData: []
@@ -29,7 +30,7 @@ class SettingsSystem extends React.Component {
     componentWillMount() {
         const { userInfo } = this.props.app;
         if (userInfo.station) {
-            this.setState({ stationId: userInfo.station.id, stationType: userInfo.type });
+            this.setState({ stationId: userInfo.station.id, stationName: userInfo.station.name, stationType: userInfo.type });
         }
     }
 
@@ -145,7 +146,7 @@ class SettingsSystem extends React.Component {
     }
 
     render() {
-        const { index, stationId, stationType, notStationData } = this.state;
+        const { index, stationId, stationName, stationType, notStationData } = this.state;
         const { applianceData, operaData } = this.props.ssystem;
 
         return (
@@ -153,7 +154,7 @@ class SettingsSystem extends React.Component {
                 <div><h3>系统设置</h3></div>
                 <div>
                     <ul className="nav">
-                        <li className={index === 1 && 'active'} onClick={() => { this.changeSetting(1) }}><span>当前系统类型设置</span><small>(手术室)</small><i></i></li>
+                        <li className={index === 1 && 'active'} onClick={() => { this.changeSetting(1) }}><span>当前系统类型设置</span><small>({stationName})</small><i></i></li>
                         <li className={index === 2 && 'active'} onClick={() => { this.changeSetting(2) }}><span>不开放手术室设置</span><small>({this.notOpen(applianceData)})</small><i></i></li>
                     </ul>
                     {

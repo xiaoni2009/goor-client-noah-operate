@@ -26,7 +26,7 @@ class Depot extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const { station } = locals.get('userInfo');
+        const { station } = locals.getSession('userInfo');
         const { data } = nextProps.depot;
         const self = this;
 
@@ -132,7 +132,7 @@ class Depot extends React.Component {
                                                 view.applianceList.map((t, i) => {
                                                     if (t.appliance) {
                                                         return (
-                                                            <var key={i}>{i + 1}x {t.appliance.name}  ({t.number}件)</var>
+                                                            <var key={i}><var>{t.number}</var> (件) {t.appliance.name} </var>
                                                         )
                                                     } else {
                                                         return '';

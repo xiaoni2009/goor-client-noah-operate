@@ -17,6 +17,11 @@ class Appliance extends React.Component {
         dispatch(routerRedux.push('order'));
     }
 
+    componentWillUnmount(){
+        const { dispatch } = this.props;
+        dispatch({ type: 'Appliance/save', payload: { data: [] } });
+    }
+
     render() {
 
         const { dispatch, appliance } = this.props;

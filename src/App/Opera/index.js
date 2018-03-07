@@ -17,6 +17,11 @@ class Opera extends React.Component {
         this.setExtra = this.setExtra.bind(this);
     }
 
+    componentWillUnmount(){
+        const { dispatch } = this.props;
+        dispatch({ type: 'Opera/save', payload: { data: [] } });
+    }
+
     // 弹出框-编辑数量
     setExtra(t) {
         const self = this;

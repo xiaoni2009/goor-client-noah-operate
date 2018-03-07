@@ -35,7 +35,7 @@ export default {
 				})
                 // 绑定成功
                 // if(payload.stationType === 5){
-                    locals.remove('userInfo');
+                    locals.removeSession('userInfo');
                     yield put(routerRedux.go('/'));
                 // }
 			}

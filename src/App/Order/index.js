@@ -128,7 +128,7 @@ class Order extends React.Component {
 
     // 提交订单
     orderSub() {
-        const { station } = locals.get('userInfo');
+        const { station } = locals.getSession('userInfo');
         //
         const { dispatch, order } = this.props;
         const { extra, bag } = this.props.order;
@@ -167,7 +167,7 @@ class Order extends React.Component {
 
         //
         // 订单信息存储在本地
-        locals.set('orderInfo', JSON.stringify(info));
+        locals.setSession('orderInfo', JSON.stringify(info));
         dispatch({ type: 'Order/post', payload: info });
     }
 

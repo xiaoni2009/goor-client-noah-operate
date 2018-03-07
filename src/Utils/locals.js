@@ -12,5 +12,18 @@ const locals = {
     remove: (name) => {
         localStorage.removeItem(name);
     },
+    getSession:(name) => {
+        try {
+            return JSON.parse(sessionStorage.getItem(name));
+        } catch (error) {
+            return sessionStorage.getItem(name);
+        }
+    },
+    setSession:(name, data) => {
+        sessionStorage.setItem(name, JSON.stringify(data));
+    },
+    removeSession: (name) => {
+        sessionStorage.removeItem(name);
+    },
 };
 export default locals;
