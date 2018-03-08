@@ -34,20 +34,17 @@ class Select extends React.Component {
         const {mode = false, placeholder = '', onSearch= null, data = [], onChage = null, defaultValue = null} = nextProps;
         const { searchList } = this.state;
         if(mode){
-            const info = { data, mode, onSearch, placeholder, onChage, searchShow: false, selectShow: true }
+            const info = { data, mode, onSearch, placeholder, onChage, searchShow: false, selectShow: true, }
             // 回显过滤
-            if(searchList.length === 0 && !searchListCache) {
-                let filterDefaultValue = [];
-                defaultValue.map((t)=>{
-                    filterDefaultValue.push({
-                        id: t.appliance.id,
-                        name: t.appliance.name,
-                        number: t.number
-                    });
+            let filterDefaultValue = [];
+            defaultValue.map((t)=>{
+                filterDefaultValue.push({
+                    id: t.id || t.appliance.id,
+                    name: t.name || t.appliance.name,
+                    number: t.number
                 });
-                searchListCache = true;
-                info.searchList = filterDefaultValue;
-            }
+            });
+            info.searchList = filterDefaultValue;
             this.setState(info);
         }else {
             this.setState({ data, mode, onSearch, placeholder, onChage, selectValue: defaultValue.name, selectId: defaultValue.id });   
@@ -143,7 +140,8 @@ class Select extends React.Component {
                     // 赋值
                     if(onChage){
                         onChage(searchList);
-                        slef.setState({ selectShow: false, searchValue: '', searchList });
+                        slef.setState({ selectShow: false, searchValue: '' });
+                        // slef.setState({ selectShow: false, searchValue: '', searchList });
                     }
                 }else {
                     Toast({val: '请输入1-999的范围数值'});
@@ -155,8 +153,12 @@ class Select extends React.Component {
 
     // 删除多选之一
     searchListRemove(t, i){
-        const { searchList } = this.state;
+        const { searchList, onChage } = this.state;
         searchList.splice(i, 1);
+        // 赋值
+        if(onChage){
+            onChage(searchList);
+        }
         this.setState({ searchList });
     }
 

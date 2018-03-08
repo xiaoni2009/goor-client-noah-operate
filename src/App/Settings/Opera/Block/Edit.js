@@ -2,11 +2,27 @@ import React from 'react';
 import { connect } from 'dva';
 import { Button, Select, confirmAlert } from 'Components';
 
+// 缓存初始化
+let dataCache = {
+    name: null,
+    searchName: null,
+    operationDepartmentType: {},
+    applianceList: []
+};
+
 class Edit extends React.Component {
     constructor(props) {
         super(props);
-
         const { item = {} } = this.props.sopera || [];
+
+        // 设置缓存
+        dataCache = {
+            name: item.name || '', 
+            searchName: item.searchName || '',
+            operationDepartmentType: item.operationDepartmentType || {},
+            applianceList:  item.applianceList || []
+        }
+
         this.state = {
             item,
             departmenttype: [],
@@ -28,11 +44,13 @@ class Edit extends React.Component {
         let info = {};
 
         if(msd == [] || departmenttype != msd){
-            info.departmenttype = msd
+            info.departmenttype = msd;
+            dataCache.departmenttype = msd;
         }
 
         if(mso == [] || OperationType != mso){
             info.OperationType = mso;
+            dataCache.OperationType = msd;
         }
 
         this.setState(info);
@@ -48,9 +66,9 @@ class Edit extends React.Component {
     applianceListChange(list){
         const { dispatch } = this.props;
         const { item } = this.state
-        item.applianceList = [];
+        item.applianceList = list;
         dispatch({ type: 'SettingsOpera/save', payload: { OperationType: [] } });
-        this.setState(item);
+        this.setState({ item });
     }
 
     // 手术科室数据
@@ -65,10 +83,15 @@ class Edit extends React.Component {
 
     // 恢复
     recover(){
-        // const { item } = this.state;
-        // item.name = dataCache.name;
-        // item.searchName = dataCache.searchName;
-        // this.setState({ item , packageTypeId: dataCache.packageTypeId });
+        const { dispatch } = this.props;
+        const { item } = this.state;
+        item.name = dataCache.name;
+        item.searchName = dataCache.searchName;
+        item.applianceList = dataCache.applianceList;
+        item.operationDepartmentType = dataCache.operationDepartmentType;
+
+        dispatch({ type: 'SettingsOpera/save', payload: { OperationType: [] } });
+        this.setState({ item });
     }
 
     // 删除
@@ -89,18 +112,13 @@ class Edit extends React.Component {
 
     // 添加
     confirm(){
-        // const { item, packageTypeId } = this.state;
+        const { item } = this.state;
+        console.log(item)
         // const { dispatch } = this.props;
-        // const info = {
-        //     name: item.name,
-        //     searchName: item.searchName,
-        //     packageTypeId,
-        //     departmentTypeCode: 6
-        // }
         // if(item.id) {
         //     info.id = item.id;
         // }
-        // dispatch({ type: 'SettingsAppliance/post', payload: info });
+        // dispatch({ type: 'SettingsOpera/post', payload: info });
     }
 
     render() {
