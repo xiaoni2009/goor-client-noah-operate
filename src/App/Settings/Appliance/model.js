@@ -17,7 +17,7 @@ export default {
                     dispatch({ type: 'query', payload: query });
                 }
 
-                if (pathname === '/settings/appliance/type') {
+                if (pathname === '/settings/appliance/type'  || pathname === '/settings/appliance/edit') {
                     dispatch({ type: 'packageType' });
                 }
             });

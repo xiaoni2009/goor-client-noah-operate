@@ -35,19 +35,19 @@ export default {
             const res = yield call(POST, payload);
             if(res.code == 0){
                 Toast({val: res.message});
-                yield put(routerRedux.push('/settings/appliance/list'));
+                yield put(routerRedux.push('/settings/opera/list'));
             }
         },
         *delete({ payload }, { call, put }) {
             const res = yield call(DELETE, payload.id);
             if(res.code === 0) {
                 Toast({val: res.message});
-                yield put(routerRedux.push('/settings/appliance/list'));
+                yield put(routerRedux.push('/settings/opera/list'));
             }
         },
         *departmentType({ payload }, { call, put }) {
             const res = yield call(DEPARTMENTTYPE);
-            yield put({ type: 'save', payload: { departmenttype: res.data ? res.data.list : [] } });
+            yield put({ type: 'save', payload: { departmenttype: res.data ? res.data.list : [], OperationType: [] } });
         },
         *departmentDelete({ payload }, { call, put }) {
             const res = yield call(DEPARTMENTTYPEDELETE, payload.id);

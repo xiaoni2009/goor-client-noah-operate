@@ -40,7 +40,7 @@ function List({ sopera, dispatch}) {
             <ul className="sa_header">
                 <li className="sa_search"><SearchKeyword {...keywordProps} /></li>
                 <li className="sa_upload"><span>批量导入</span></li>
-                <li className="sa_add"><Link to='/settings/opera/edit?type=add'><Button type="add" /></Link></li>
+                <li className="sa_add"><Button onClick={add} type="add" /></li>
             </ul>
             <Tables {...info} />
         </div>

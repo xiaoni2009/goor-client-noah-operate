@@ -129,7 +129,7 @@ class Tables extends React.Component {
                                 list.map((t, i) => {
                                     return (
                                         <tr key={i} onClick={()=>{editChange(t)}}>
-                                            <td>{i}</td>
+                                            <td>{i+1}</td>
                                             {
                                                 columns.map((ct, ci) => {
                                                     const ckey = columns[ci].value;
