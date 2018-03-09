@@ -38,11 +38,19 @@ class Select extends React.Component {
             // 回显过滤
             let filterDefaultValue = [];
             defaultValue.map((t)=>{
-                filterDefaultValue.push({
-                    id: t.id || t.appliance.id,
-                    name: t.name || t.appliance.name,
-                    number: t.number
-                });
+                if(t.appliance){
+                    filterDefaultValue.push({
+                        id: t.appliance.id,
+                        name: t.appliance.name,
+                        number: t.number
+                    });
+                }else {
+                    filterDefaultValue.push({
+                        id: t.id,
+                        name: t.name,
+                        number: t.number
+                    });
+                }
             });
             info.searchList = filterDefaultValue;
             this.setState(info);
@@ -108,7 +116,7 @@ class Select extends React.Component {
                     <div className="searchOneAdd">
                         <div className="searchOneTitle">当前选择器械：</div>
                         <div className="searchOneName">{t.name}</div>
-                        <div className="searchOnenum">请选择器械的数量：<input id="searchOne" type="text" onChange={setVal} placeholder="1~999" /></div>
+                        <div className="searchOnenum">请选择器械的数量：<input id="searchOne" type="number" onChange={setVal} placeholder="1~999" /></div>
                     </div>
                 )
             },
@@ -141,7 +149,6 @@ class Select extends React.Component {
                     if(onChage){
                         onChage(searchList);
                         slef.setState({ selectShow: false, searchValue: '' });
-                        // slef.setState({ selectShow: false, searchValue: '', searchList });
                     }
                 }else {
                     Toast({val: '请输入1-999的范围数值'});
@@ -160,6 +167,45 @@ class Select extends React.Component {
             onChage(searchList);
         }
         this.setState({ searchList });
+    }
+
+    // 编辑多选之一
+    searchListEdit(t, i){
+        const slef = this;
+        const { searchList, onChage } = slef.state;
+        // 获取值
+        let searchOneValue = 0;
+        function setVal(t){
+            searchOneValue = t.target.value;
+        }
+        confirmAlert({
+            title: '',
+            message: '',
+            childrenElement: () => {
+                return (
+                    <div className="searchOneAdd">
+                        <div className="searchOneTitle">当前选择器械：</div>
+                        <div className="searchOneName">{t.name}</div>
+                        <div className="searchOnenum">请选择器械的数量：<input id="searchOne" type="number" defaultValue={t.number} onChange={setVal} placeholder="1~999" /></div>
+                    </div>
+                )
+            },
+            confirmLabel: '确认',
+            cancelLabel: '取消',
+            onConfirm(call) {
+                if(searchOneValue > 0 && searchOneValue < 1000){
+                    call(true);
+                    searchList[i].number = searchOneValue;
+                    // // 赋值
+                    if(onChage){
+                        onChage(searchList);
+                        slef.setState({ selectShow: false, searchValue: '' });
+                    }
+                }else {
+                    Toast({val: '请输入1-999的范围数值'});
+                }
+            }
+        });
     }
 
     render() {
@@ -185,7 +231,7 @@ class Select extends React.Component {
                         searchShow
                         &&
                         <div className="searching">
-                            <span>搜索中...</span>
+                            <div className="span"><div className="load-container load"><div className="loader">Loading...</div></div>搜索中...</div>
                         </div>
                     }
                     {
@@ -194,7 +240,7 @@ class Select extends React.Component {
                         <ul className="searchList">
                             {
                                 searchList.map((t, i)=>{
-                                    return <li key={i}><span>{t.name}（{t.number}） </span><i onClick={()=>{this.searchListRemove(t,i)}}>X</i></li>
+                                    return <li key={i}><span onClick={()=>{this.searchListEdit(t,i)}}>{t.name}（{t.number}） </span><i onClick={()=>{this.searchListRemove(t,i)}}>X</i></li>
                                 })
                             }
                         </ul>

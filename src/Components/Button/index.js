@@ -7,10 +7,10 @@ class Button extends React.Component {
     }
 
     render() {
-        const { type = 'normal', onClick } = this.props;
+        const { type = 'normal', onClick, children } = this.props;
 
         return (
-            <span className="buttons" onClick={onClick || ''}><i className={type}></i></span>
+            <span className="buttons" onClick={onClick || ''}><i className={type}></i>{children}</span>
         )
     }
 }

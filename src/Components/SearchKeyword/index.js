@@ -12,7 +12,8 @@ class SearchKeyword extends React.Component {
 
     toUpperCase(e) {
         const { search } = this.props;
-        const val = e.target.value.replace(/[^\w\.\/]/ig,'').toUpperCase();
+        // const val = e.target.value.replace(/[^\w\.\/]/ig,'').toUpperCase();
+        const val = e.target.value;
         this.setState({ value: val });
         search(val);
     }

@@ -1,7 +1,9 @@
 import React from 'react';
+import Upload from 'rc-upload';
 import { connect } from 'dva';
-import { Tables, Button, SearchKeyword } from 'Components';
+import { Tables, Button, SearchKeyword, Toast } from 'Components';
 import { Link, routerRedux } from 'dva/router';
+import { apiUrl } from 'Utils/config'
 
 function List({ sopera, dispatch}) {
     const columns = [
@@ -34,12 +36,23 @@ function List({ sopera, dispatch}) {
         dispatch(routerRedux.push('/settings/opera/edit?type=add'));
     }
 
+    // 上传
+    const uploaderProps = {
+        action: `${apiUrl}operation/type/import`,
+        onSuccess(res) {
+            if(res.code === 0) {
+                dispatch({ type: 'SettingsOpera/query', payload: {} });
+            }
+            Toast({val: res.message});
+        },
+    };
+
     return (
         <div className="sa_main">
             <small className="sa_typeButton"><Link to='/settings/opera/type?type=type'>手术科室设置</Link></small>
             <ul className="sa_header">
                 <li className="sa_search"><SearchKeyword {...keywordProps} /></li>
-                <li className="sa_upload"><span>批量导入</span></li>
+                <li className="sa_upload"><Upload {...uploaderProps}><Button type="upload" /><span>批量导入</span></Upload></li>
                 <li className="sa_add"><Button onClick={add} type="add" /></li>
             </ul>
             <Tables {...info} />

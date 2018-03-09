@@ -113,12 +113,28 @@ class Edit extends React.Component {
     // 添加
     confirm(){
         const { item } = this.state;
-        console.log(item)
-        // const { dispatch } = this.props;
-        // if(item.id) {
-        //     info.id = item.id;
-        // }
-        // dispatch({ type: 'SettingsOpera/post', payload: info });
+        const { dispatch } = this.props;
+        //
+        function filterApplianceList(data){
+            let al = [];
+            data.map((t, i) => {
+                al.push({ "appliance": { "id": t.id }, "number": t.number})
+            });
+            return al;
+        }
+        //
+        const info = {
+            name: item.name,
+            searchName: item.searchName,
+            operationDepartmentType: {
+                id: item.operationDepartmentType.id
+            },
+            applianceList: filterApplianceList(item.applianceList)
+        }
+        if(item.id) {
+            info.id = item.id;
+        }
+        dispatch({ type: 'SettingsOpera/post', payload: info });
     }
 
     render() {
