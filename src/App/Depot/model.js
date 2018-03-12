@@ -3,7 +3,8 @@ import { QUERY, ORDERRECEIVE, ORDERHANDLE } from './service';
 export default {
 	namespace: 'Depot',
 	state: {
-		data: []
+		data: [],
+		fetchOrder: true
 	},
 	subscriptions: {
 		setup({ dispatch, history }) {
@@ -22,7 +23,7 @@ export default {
 			}
 		},
 		*setOrder({ payload }, { call, put }) {
-			console.log(11111)
+			
 		},
 		*orderreceive({ payload }, { call, put }) {
 			const res = yield call(ORDERRECEIVE, payload.id);

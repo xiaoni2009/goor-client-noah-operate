@@ -30,9 +30,9 @@ class Depot extends React.Component {
         const { data } = nextProps.depot;
         const self = this;
 
-        if (fetchOrder) {
+        // if (fetchOrder) {
             self.setState({ orderList: data });
-            fetchOrder = false;
+            // fetchOrder = false;
             // 需要的机器人配置
             const info = { messageType: 'REGISTER', module: 'INFO_ORDER', userId: station.id || '' };
             // ws请求
@@ -45,7 +45,7 @@ class Depot extends React.Component {
                         break;
                 }
             });
-        }
+        // }
     }
 
     //
